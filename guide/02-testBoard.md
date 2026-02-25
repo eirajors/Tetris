@@ -48,6 +48,15 @@ Vi skal bruke denne metoden en del gjennom resten av utviklingen for å teste fo
 ```
 Bytt ut `...` med linjer som får testen til å passere.
 
+Legg til et par tester til som tester følgende metoder:
+
+- konstruktørene
+- iterator()
+- positionIsOnGrid()
+- isFree()
+
+Hint: du kan få noen ideer av å se på `GridTest.java`
+
 ---
 
 ## **✅ Fullført?**  
