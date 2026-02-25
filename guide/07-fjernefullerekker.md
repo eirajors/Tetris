@@ -63,67 +63,20 @@ Fjerning av rekker er spesielt viktig å teste grundig med automatiserte tester,
 
 ```java
 @Test
-public void testRemoveFullRows() {
-  // Tester at fulle rader fjernes i brettet:
-  // -T
-  // TT
-  // LT
-  // L-
-  // LL
-
-  TetrisBoard board = new TetrisBoard(5, 2);
-  board.set(new CellPosition(0, 1), 'T');
-  board.set(new CellPosition(1, 0), 'T');
-  board.set(new CellPosition(1, 1), 'T');
-  board.set(new CellPosition(2, 1), 'T');
-  board.set(new CellPosition(4, 0), 'L');
-  board.set(new CellPosition(4, 1), 'L');
-  board.set(new CellPosition(3, 0), 'L');
-  board.set(new CellPosition(2, 0), 'L');
-
-  assertEquals(3, board.removeFullRows());
-
-  String expected = String.join("\n", new String[] {
-    "--",
-    "--",
-    "--",
-    "-T",
-    "L-"
-  });
-  assertEquals(expected, board.prettyString());
-}
-```
+public void testFullRowClears() {
+	int row = 10;
+	Grid grid = new Grid(15,10,'-');	for(CellPosition pos : grid.positions()) {		if(pos.row()==row && (pos.col()<3 || pos.col()>6)) {			grid.set(pos, 'I');		}		if(pos.row()>row) {     		if((pos.row()+pos.col())%2==0){     			grid.set(pos, 'O');
+			}     	}     }
+ 	TetrisBoard board = new TetrisBoard(grid);	TetrominoFactory factory = new PatternedTetrominoFactory("I");	TetrisModel model = new TetrisModel(board, factory);	model.dropFallingPiece();
+ 	for(int col=0; col<10; col++) {		assertTrue(board.isFree(new CellPosition(row,col)));	}}``
 
 *Du kan også skrive dine egne tester for fjerning av rekker:*
 - En test der nederste rad må beholdes.
 - En test der øverste rad skal fjernes.
 - En test med en annen bredde på brettet.
 
-Det kan være lurt å opprette en hjelpemetode `getTetrisBoardWithContents` som kan omgjøre en `String[]` til et `TetrisBoard`. Dette gjør testene lettere å lese, og reduserer risikoen for feil i testene.
+DDet kan være lurt å opprette en hjelpemetoder som kan opprette `TetrisBoard` objekter. Da kan du visualisere disse brettene med Tetrisiew slik at det blir lettere å få dem rett.
 
-*Testen kan se slik ut:*
-
-```java
-@Test
-public void testRemoveFullRows() {
-  TetrisBoard board = getTetrisBoardWithContents(new String[] {
-    "-T",
-    "TT",
-    "LT",
-    "L-",
-    "LL"
-  });
-  assertEquals(3, board.removeFullRows());
-  String expected = String.join("\n", new String[] {
-    "--",
-    "--",
-    "--",
-    "-T",
-    "L-"
-  });
-  assertEquals(expected, board.prettyString());
-}
-```
 
 ---
 

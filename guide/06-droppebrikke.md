@@ -13,10 +13,13 @@ Når du er ferdig med dette steget, kan du droppe brikker ved å trykke på mell
 3. Implementer metoden i `TetrisModel`. Til dette formålet bruker vi noen hjelpemetoder:
     - En hjelpemetode for å hente en ny fallende tetromino. I første omgang henter vi en ny brikke fra tetromino-fabrikken og oppdaterer feltvariabelen for fallende brikke i modellen.
     
-    - En hjelpemetode for å lime fast den fallende tetrominoen til brettet. Her itererer du over koordinatene til tetrominoen og oppdaterer verdiene på brettet i disse posisjonene. Til slutt, kall på metoden som henter en ny brikke.
+    - En hjelpemetode for å lime fast den fallende tetrominoen til brettet (denne kan gjerne være en hjelpemetode i TetrisBoard). Her itererer du over koordinatene til tetrominoen og oppdaterer verdiene på brettet i disse posisjonene. 
+
+    - En metode som først kaller på lime metoden og så kaller på metoden som henter en ny brikke.
 
     - Selve metoden som dropper en brikke. Her flytter du brikken ett steg nedover i en løkke (har vi en hjelpe-metode vi kan bruke?) så lenge det er mulig. Når det ikke lenger er mulig å flytte brikken nedover, limer vi den fast til brettet og henter en ny fallende brikke.
-4. Skriv en test i `TetrisModelTest` som tester dropping av brikke. ✅
+
+4. Skriv en tester i `TetrisModelTest` som tester dropping av brikke og tester i `TetrisBoardTest` som tester liming av Tetromino. ✅
 
 ## Håndtere Game Over
 
