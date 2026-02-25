@@ -1,5 +1,5 @@
 # **⚠️ IKKE FORK DETTE REPOET**  
-Hvis du forker dette repoet selv, vil du miste **15 poeng** fra din opprinnelige score.  
+Hvis du forker dette repoet selv, vil du miste **12 poeng** fra din opprinnelige score.  
 
 <img align="right" width=200 src="./guide/pics/tetris-inaction.png">
 
@@ -46,8 +46,8 @@ For å få bestått må du oppnå **minst 5 av 12 poeng**.
 
 | **Kategori**                   | **Poeng** | **Hva vurderes?** 
 |--------------------------------|-----------|----------------------------------
-| **Funksjonalitet**             | **4**     | Fungerer spillet? Vi kjører spillet og ser at alt fungerer 
-| **Dokumentasjon og kodestil**  | **3**     | Har du gode variabelnavn og [Javadocs](https://inf101v23.stromme.me/notat/stil/#javadoc)? Følger du MVC prinsippet? Bruker du interfaces og encapsulation rett
+| **Funksjonalitet**             | **4**     | Fungerer spillet? Vi kjører spillet og ser at alt fungerer. 
+| **Dokumentasjon og kodestil**  | **3**     | Har du gode variabelnavn og [Javadocs](https://inf101v23.stromme.me/notat/stil/#javadoc)? Følger du MVC prinsippet? Bruker du interfaces og encapsulation rett?
 | **Testing**                    | **3**     | Tester du både normale og spesielle tilfeller? 
 | **Svar på spørsmål**           | **2**     | Er svarene dine presise og korrekte? |
 

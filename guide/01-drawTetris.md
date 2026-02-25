@@ -1,7 +1,7 @@
 **🔙 [Forrige](guide/00-arkitektur.md) • [📜 Oversikt](sem1-tetris/..) • [🔜 Neste](guide/02-testBoard.md)**
 
 ## **✅ Implementer Grid**  
-I **Lab 5** har vi allerede laget en **grid-datastruktur** kopier inn din fil Grid.java fra Lab 5.
+I **Lab 5** har vi allerede laget en **grid-datastruktur** kopier inn din fil `Grid.java` fra Lab 5.
   
 - Vi har laget en **visning av rutenettet**.  
 
