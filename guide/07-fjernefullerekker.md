@@ -74,7 +74,8 @@ public void testFullRowClears() {
 			if(pos.row()>row) {     		
 			if((pos.row()+pos.col())%2==0){     		
 				grid.set(pos, 'O');
-			}	    	}
+			}
+		}
 	}
  	TetrisBoard board = new TetrisBoard(grid);
  	TetrominoFactory factory = new PatternedTetrominoFactory("I");
