@@ -78,13 +78,14 @@ public void testFullRowClears() {
 
 			}
 	    	}
-	    	     }
- 	TetrisBoard board = new TetrisBoard(grid);	
- 	TetrominoFactory factory = new PatternedTetrominoFactory("I");	
- 	TetrisModel model = new TetrisModel(board, factory);	
+	}
+ 	TetrisBoard board = new TetrisBoard(grid);
+ 	TetrominoFactory factory = new PatternedTetrominoFactory("I");
+ 	TetrisModel model = new TetrisModel(board, factory);
  	model.dropFallingPiece();
  	for(int col=0; col<10; col++) {
- 			assertTrue(board.isFree(new CellPosition(row,col)));	}
+		assertTrue(board.isFree(new CellPosition(row,col)));
+			}
  			}
 ```
 
