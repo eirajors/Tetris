@@ -64,11 +64,29 @@ Fjerning av rekker er spesielt viktig å teste grundig med automatiserte tester,
 ```java
 @Test
 public void testFullRowClears() {
+
 	int row = 10;
-	Grid grid = new Grid(15,10,'-');	for(CellPosition pos : grid.positions()) {		if(pos.row()==row && (pos.col()<3 || pos.col()>6)) {			grid.set(pos, 'I');		}		if(pos.row()>row) {     		if((pos.row()+pos.col())%2==0){     			grid.set(pos, 'O');
-			}     	}     }
- 	TetrisBoard board = new TetrisBoard(grid);	TetrominoFactory factory = new PatternedTetrominoFactory("I");	TetrisModel model = new TetrisModel(board, factory);	model.dropFallingPiece();
- 	for(int col=0; col<10; col++) {		assertTrue(board.isFree(new CellPosition(row,col)));	}}``
+	
+	Grid grid = new Grid(15,10,'-');
+
+	for(CellPosition pos : grid.positions()) {	
+		if(pos.row()==row && (pos.col()<3 || pos.col()>6)) {	
+			grid.set(pos, 'I');		}		
+			if(pos.row()>row) {     		
+			if((pos.row()+pos.col())%2==0){     		
+				grid.set(pos, 'O');
+
+			}
+	    	}
+	    	     }
+ 	TetrisBoard board = new TetrisBoard(grid);	
+ 	TetrominoFactory factory = new PatternedTetrominoFactory("I");	
+ 	TetrisModel model = new TetrisModel(board, factory);	
+ 	model.dropFallingPiece();
+ 	for(int col=0; col<10; col++) {
+ 			assertTrue(board.isFree(new CellPosition(row,col)));	}
+ 			}
+```
 
 *Du kan også skrive dine egne tester for fjerning av rekker:*
 - En test der nederste rad må beholdes.
