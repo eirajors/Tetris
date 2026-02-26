@@ -11,7 +11,7 @@ public interface GridDimension {
 	int cols();
 
 	default Iterable<CellPosition> positions(){
-		return new GridPositionIterable(this);
+		return new Positions(this);
 	}
 	
 	/**
