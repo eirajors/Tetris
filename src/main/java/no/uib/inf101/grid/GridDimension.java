@@ -1,5 +1,7 @@
 package no.uib.inf101.grid;
 
+import java.util.Iterator;
+
 public interface GridDimension {
 
 	/** Number of rows in the grid */
@@ -8,13 +10,8 @@ public interface GridDimension {
 	/** Number of columns in the grid */
 	int cols();
 
-	/**
-	 * Returns a representation of all the valid positions within this
-	 * GridDimension
-	 * @return Iterable<Position> of all valid positions
-	 */
 	default Iterable<CellPosition> positions(){
-		return new Positions(this);
+		return new GridPositionIterable(this);
 	}
 	
 	/**
@@ -23,5 +20,12 @@ public interface GridDimension {
 	 * @param pos position to check
 	 * @return true if the coordinate is within bounds, false otherwise
 	 */
-	boolean positionIsOnGrid(CellPosition pos);
+	default boolean positionIsOnGrid(CellPosition pos) {
+		if(pos==null)
+			return false;
+		boolean validRow = pos.row()>=0 && pos.row()<rows();
+		boolean validCol = pos.col()>=0 && pos.col()<cols();
+		return  validRow && validCol;
+	}
+
 }
