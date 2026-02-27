@@ -14,6 +14,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
     //konstruktør
     public TetrisBoard(IGrid grid){
         this.grid = grid;
+        
     }
 
     public TetrisBoard(int rows, int cols){

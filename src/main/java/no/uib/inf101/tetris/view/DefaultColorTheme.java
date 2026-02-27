@@ -11,6 +11,7 @@ public class DefaultColorTheme implements ColorTheme {
             case 'g' -> Color.GREEN;
             case 'y' -> Color.YELLOW;
             case 'b' -> Color.BLUE;
+            case 'w' -> Color.WHITE;
 
             case 'L' -> Color.ORANGE;
             case 'J' -> Color.BLUE;

@@ -67,12 +67,12 @@ public class TetrisView extends JPanel {
             Character colorSymbol = cell.value();
 
             Color colorCell = null;
-            if(colorSymbol=='-'){
-                colorCell = Color.WHITE;
-            }
-            else{
+            //if(colorSymbol=='-'){
+                //colorCell = Color.WHITE;
+            //}
+            //else{
                 colorCell = colorTheme.getCellColor(colorSymbol);
-            }
+            //}
 
             g2.setColor(colorCell);
             g2.fill(cellArea);
