@@ -1,10 +1,19 @@
 package no.uib.inf101.tetris.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.Grid;
+import no.uib.inf101.grid.GridCell;
+import no.uib.inf101.grid.IGrid;
 import no.uib.inf101.tetris.model.TetrisBoard;
 
 public class TetrisBoardTest {
@@ -16,8 +25,83 @@ public class TetrisBoardTest {
 		TetrisBoard board = new TetrisBoard(grid);
 		int countFree=0;
 		int countTaken=0;
-		
+		for(int r= 0; r < rows; r++){
+            for(int c = 0; c < cols; c++){
+                CellPosition pos = new CellPosition(r, c);
+                if(board.isFree(pos)){
+                    countFree ++;
+                }
+                else{
+                    countTaken ++;
+                }
+            }
+        }
+
 		assertEquals(rows*cols, countFree);
 		assertEquals(0, countTaken);
 	}
+
+    @Test
+    void testConstructs(){
+        assertThrows(IllegalArgumentException.class, ()-> {new Grid(3,-1);},"Can not have negative number of cols");
+		assertThrows(IllegalArgumentException.class, ()-> {new Grid(-1,3);},"Can not have negative number of rows");
+    }
+
+    @Test
+	void testIterator() {
+		IGrid grid = new Grid(3, 2, 'x');
+		grid.set(new CellPosition(0, 0), 'a');
+		grid.set(new CellPosition(1, 1), 'b');
+		grid.set(new CellPosition(2, 1), 'c');
+
+		List<GridCell> items = new ArrayList<>();
+		for (GridCell coordinateItem : grid) {
+			items.add(coordinateItem);
+		}
+
+		assertEquals(3 * 2, items.size());
+		assertTrue(items.contains(new GridCell(new CellPosition(0, 0), 'a')));
+		assertTrue(items.contains(new GridCell(new CellPosition(1, 1), 'b')));
+		assertTrue(items.contains(new GridCell(new CellPosition(2, 1), 'c')));
+		assertTrue(items.contains(new GridCell(new CellPosition(0, 1), 'x')));
+	}
+
+    
+    @Test
+    void testPositionIsOnGrid(){
+        IGrid grid = new Grid(3, 2, 'z');
+
+		assertTrue(grid.positionIsOnGrid(new CellPosition(2, 1)));
+		assertFalse(grid.positionIsOnGrid(new CellPosition(3, 1)));
+		assertFalse(grid.positionIsOnGrid(new CellPosition(2, 2)));
+
+		assertTrue(grid.positionIsOnGrid(new CellPosition(0, 0)));
+		assertFalse(grid.positionIsOnGrid(new CellPosition(-1, 0)));
+		assertFalse(grid.positionIsOnGrid(new CellPosition(0, -1)));
+
+		assertFalse(grid.positionIsOnGrid(null));
+    }
+
+    @Test
+    void testIsFree(){
+        int rows = 3;
+		int cols = 5;
+		Grid grid = new Grid(rows,cols,'-');
+
+        grid.set(new CellPosition(0, 1), 'r');
+        grid.set(new CellPosition(2, 4), 'b');
+        grid.set(new CellPosition(2, 1), 'r');
+
+		TetrisBoard board = new TetrisBoard(grid);
+
+        assertTrue(board.isFree(new CellPosition(0, 0)));
+        assertTrue(board.isFree(new CellPosition(1, 0)));
+        assertFalse(board.isFree(new CellPosition(0, 1)));
+        assertFalse(board.isFree(new CellPosition(2, 4)));
+        assertFalse(board.isFree(new CellPosition(2, 1)));
+
+
+        
+    }
+
 }

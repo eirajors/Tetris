@@ -38,7 +38,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
     }
 
     public boolean isFree(CellPosition pos){
-        //hvis fargesymbolet i cellen er '-', returner true, hvis ikke false
+        //hvis fargesymbolet i cellen er '-'(tom), returner true, hvis ikke false
         if(grid.get(pos) == '-'){
             return true;
         }
