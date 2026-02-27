@@ -70,9 +70,9 @@ public class TetrisView extends JPanel {
             //if(colorSymbol=='-'){
                 //colorCell = Color.WHITE;
             //}
-            //else{
+            
                 colorCell = colorTheme.getCellColor(colorSymbol);
-            //}
+            
 
             g2.setColor(colorCell);
             g2.fill(cellArea);

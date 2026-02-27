@@ -2,6 +2,7 @@ package no.uib.inf101.tetris.model;
 
 import java.util.Iterator;
 
+import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.Grid;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
@@ -34,6 +35,12 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
     @Override
     public Iterator<GridCell> iterator() {
         return grid.iterator();
+    }
+
+    public boolean isFree(CellPosition pos){
+        
+        return false;
+        
     }
 
 }
