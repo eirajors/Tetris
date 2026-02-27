@@ -7,6 +7,7 @@ import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.TetrisModel;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -23,6 +24,8 @@ public class TetrisView extends JPanel {
     private TetrisModel tetrisModel;
     
     public TetrisView(TetrisModel tetrisModel) {
+
+        this.tetrisModel = tetrisModel;
 
         this.colorTheme = new DefaultColorTheme();
         this.setBackground(colorTheme.getBackgroundColor());
@@ -56,8 +59,26 @@ public class TetrisView extends JPanel {
 
     private static void drawCells(Graphics2D g2, Iterable<GridCell> iterable,
             CellPositionToPixelConverter converter, ColorTheme colorTheme) {
-        //TODO: fill in with code from Lab5
+        for(GridCell cell : iterable){
+            
+            CellPosition cellPos = cell.pos();
+            Rectangle2D cellArea = converter.getBoundsForCell(cellPos);
+
+            Character colorSymbol = cell.value();
+
+            Color colorCell = null;
+            if(colorSymbol=='-'){
+                colorCell = Color.WHITE;
+            }
+            else{
+                colorCell = colorTheme.getCellColor(colorSymbol);
+            }
+
+            g2.setColor(colorCell);
+            g2.fill(cellArea);
+        }
     }
+    
 
     private static Dimension getDefaultSize(GridDimension gd) {
         int width = (int) (PREFERREDSIDESIZE * gd.cols() + CELLMARGIN * (gd.cols() + 1) + 2 * OUTERMARGIN);

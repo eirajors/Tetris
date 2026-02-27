@@ -8,15 +8,15 @@ public class TetrisModel{
     private TetrisBoard board;
     
     public TetrisModel(){
-        this.board = new TetrisBoard(10, 15);
+        this.board = new TetrisBoard(15, 10);
     }
 
     public GridDimension getDimension() {
-        return null;
+        return board;
     }
 
     public Iterable<GridCell> getTilesOnBoard() {
-        return null;
+        return board;
     }
 
 }
