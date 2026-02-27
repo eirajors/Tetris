@@ -62,7 +62,7 @@ mvn test-compile org.pitest:pitest-maven:mutationCoverage
 :white_check_mark: Sørg for å svare på spørsmålene i [svar.md](../svar.md). **SVARENE DINE KAN GI HELE 2 POENG!**
 
 # 🤔 Bonuspoeng?
-Har du overskudd, er ivrig og ønsker å få bonuspoeng? Du kan utvide Tetris-programmet med hva du vil! Det vi synes er imponerende vil få bonuspoeng.
+Har du overskudd, er ivrig kan du utvide Tetris-programmet med hva du vil! Det vi synes er imponerende vil veie opp for eventuelle trekk du har fått på andre deler av semesteroppgaven.
 
 De aller beste innleveringene vil vises frem på forelesning og motta diplom for enorm innsats 🏆
 
