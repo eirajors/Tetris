@@ -17,6 +17,7 @@ import no.uib.inf101.grid.IGrid;
 import no.uib.inf101.tetris.model.TetrisBoard;
 
 public class TetrisBoardTest {
+    //ferdig
 	@Test
 	void testConstructStartsWithEmpty() {
 		int rows = 3;
@@ -40,13 +41,14 @@ public class TetrisBoardTest {
 		assertEquals(rows*cols, countFree);
 		assertEquals(0, countTaken);
 	}
-
+    //gjør??
     @Test
     void testConstructs(){
         assertThrows(IllegalArgumentException.class, ()-> {new Grid(3,-1);},"Can not have negative number of cols");
 		assertThrows(IllegalArgumentException.class, ()-> {new Grid(-1,3);},"Can not have negative number of rows");
     }
 
+    //gjør??
     @Test
 	void testIterator() {
 		IGrid grid = new Grid(3, 2, 'x');
@@ -66,7 +68,7 @@ public class TetrisBoardTest {
 		assertTrue(items.contains(new GridCell(new CellPosition(0, 1), 'x')));
 	}
 
-    
+    //gjør??
     @Test
     void testPositionIsOnGrid(){
         IGrid grid = new Grid(3, 2, 'z');
@@ -82,6 +84,7 @@ public class TetrisBoardTest {
 		assertFalse(grid.positionIsOnGrid(null));
     }
 
+    //ferdig
     @Test
     void testIsFree(){
         int rows = 3;
@@ -99,8 +102,6 @@ public class TetrisBoardTest {
         assertFalse(board.isFree(new CellPosition(0, 1)));
         assertFalse(board.isFree(new CellPosition(2, 4)));
         assertFalse(board.isFree(new CellPosition(2, 1)));
-
-
         
     }
 
