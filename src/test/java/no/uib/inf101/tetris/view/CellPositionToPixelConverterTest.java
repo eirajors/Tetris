@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 import org.junit.jupiter.api.Test;
 
 import no.uib.inf101.grid.CellPosition;
+import no.uib.inf101.grid.Grid;
 import no.uib.inf101.grid.GridDimension;
 
 import no.uib.inf101.tetris.view.CellPositionToPixelConverter;

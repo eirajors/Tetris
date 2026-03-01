@@ -1,0 +1,12 @@
+package no.uib.inf101.tetris.model;
+
+import no.uib.inf101.grid.GridCell;
+import no.uib.inf101.grid.GridDimension;
+
+public interface ViewableTetrisModel {
+    GridDimension getDimension();
+
+    Iterable<GridCell> getTilesOnBoard();
+
+    Iterable<GridCell> getFallingTetromino();
+}

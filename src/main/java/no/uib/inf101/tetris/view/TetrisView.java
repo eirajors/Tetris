@@ -6,6 +6,8 @@ import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.TetrisModel;
+import no.uib.inf101.tetris.model.ViewableTetrisModel;
+import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -54,6 +56,7 @@ public class TetrisView extends JPanel {
                 tetrisModel.getDimension(), CELLMARGIN);
                 
         drawCells(g2, tetrisModel.getTilesOnBoard(), converter, colorTheme);
+        drawCells(g2, tetrisModel.getFallingTetromino(), converter, colorTheme);
 
     }
 
