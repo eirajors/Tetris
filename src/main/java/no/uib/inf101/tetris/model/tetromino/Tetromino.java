@@ -118,9 +118,25 @@ public class Tetromino implements Iterable<GridCell>{
     }
 
     public Tetromino rotatedTetromino(Tetromino tetromino){
-        boolean [][] rotatedTet;
+        boolean [][] rotatedTet = new boolean[matrise.length][matrise.length];
 
-        return tetromino;
+        for(int r = 0; r < matrise.length; r++){
+            for(int c = 0; c < matrise[0].length; c++){
+                boolean oldCell = matrise[r][c];
+
+                int newRowIndex = c;
+                int newColIndex = (matrise.length - 1) - r;
+
+                rotatedTet[newRowIndex][newColIndex] = oldCell;
+            }
+        }
+
+        return new Tetromino(symbol, rotatedTet, pos);
+    }
+
+    //henter matrise slik at jeg kan sammenligne dem i test
+    public boolean [][] getMatrise(){
+        return matrise;
     }
     
 }

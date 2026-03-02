@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import no.uib.inf101.grid.CellPosition;
@@ -67,14 +68,17 @@ public class TestTetromino {
 
     @Test
     void testRotatedTetromino(){
-        boolean [][] rotatedTet =  {
+        boolean [][] rotatedDummyMatrise =  {
             {false, true, false},
             {true, true, false}, 
             {false, true, false}};
 
         Tetromino tetromino = Tetromino.newTetromino('T');
-        tetromino.rotatedTetromino(tetromino);
+        Tetromino rotated = tetromino.rotatedTetromino(tetromino);
+        boolean [][] matriseRotatedMatrise = rotated.getMatrise();
 
-        assertEquals(rotatedTet, tetromino.);
+
+        assertTrue(Arrays.deepEquals(rotatedDummyMatrise, matriseRotatedMatrise));
+        assertFalse(Arrays.deepEquals(matriseRotatedMatrise, tetromino.getMatrise()));
     }
 }

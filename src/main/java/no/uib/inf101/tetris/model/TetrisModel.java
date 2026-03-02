@@ -72,5 +72,21 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         return true; 
     }
 
+    @Override
+    public boolean legalRotation() {
+        Tetromino candTetromino = fallingTet.rotatedTetromino(fallingTet);
+
+        for(GridCell cell : candTetromino){
+            CellPosition pos = cell.pos();
+
+            if(!isLegalPosition(board, pos)){
+                return false; 
+            }
+        }
+        fallingTet = candTetromino;
+        
+        return true;
+    }
+
 
 }

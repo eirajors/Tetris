@@ -16,7 +16,7 @@ import java.awt.geom.Rectangle2D;
 public class TetrisView extends JPanel {
 
     public static final int OUTERMARGIN = 15;
-    public static final int CELLMARGIN = 2;
+    public static final int CELLMARGIN = 1;
     public static final int PREFERREDSIDESIZE = 30;
     
 

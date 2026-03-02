@@ -39,6 +39,7 @@ public class TetrisController implements KeyListener{
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             // Opp piltast ble trykket
+            model.legalRotation();
         }
         else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             // Mellemromstasten ble trykket  
