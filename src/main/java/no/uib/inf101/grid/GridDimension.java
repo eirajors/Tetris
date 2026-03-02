@@ -1,6 +1,5 @@
 package no.uib.inf101.grid;
 
-import java.util.Iterator;
 
 public interface GridDimension {
 

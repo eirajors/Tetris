@@ -2,6 +2,8 @@ package no.uib.inf101.tetris;
 
 import javax.swing.JFrame;
 
+import no.uib.inf101.tetris.controller.ControllableTetrisModel;
+import no.uib.inf101.tetris.controller.TetrisController;
 //import no.uib.inf101.grid.Grid;
 import no.uib.inf101.tetris.model.TetrisModel;
 
@@ -26,6 +28,7 @@ public class TetrisMain {
 
     TetrisModel model = new TetrisModel();
     TetrisView view = new TetrisView(model);
+    new TetrisController(model, view);
     
 
     JFrame frame = new JFrame(WINDOW_TITLE);
