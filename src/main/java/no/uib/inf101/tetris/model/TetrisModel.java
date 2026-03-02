@@ -38,8 +38,9 @@ public class TetrisModel implements ViewableTetrisModel{
     }
 
     @Override
-    public Iterable<GridCell> getFallingTetromino() {
+    public Iterable<GridCell> getFallingTetrominoCells() {
         return fallingTet;
     }
+
 
 }

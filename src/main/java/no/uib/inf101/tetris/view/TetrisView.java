@@ -55,7 +55,7 @@ public class TetrisView extends JPanel {
                 tetrisModel.getDimension(), CELLMARGIN);
                 
         drawCells(g2, tetrisModel.getTilesOnBoard(), converter, colorTheme);
-        drawCells(g2, tetrisModel.getFallingTetromino(), converter, colorTheme);
+        drawCells(g2, tetrisModel.getFallingTetrominoCells(), converter, colorTheme);
 
     }
 
