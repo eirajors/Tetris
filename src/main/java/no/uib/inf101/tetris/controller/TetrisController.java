@@ -39,11 +39,12 @@ public class TetrisController implements KeyListener{
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             // Opp piltast ble trykket
-            model.legalRotation();
+            model.rotateTetromino();
         }
         else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             // Mellemromstasten ble trykket  
-            while(model.moveTetromino(1, 0));
+            //while(model.moveTetromino(1, 0));
+            model.dropTetromino();
         }
         tetrisView.repaint();
     }

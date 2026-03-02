@@ -73,7 +73,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     }
 
     @Override
-    public boolean legalRotation() {
+    public boolean rotateTetromino() {
         Tetromino candTetromino = fallingTet.rotatedTetromino(fallingTet);
 
         for(GridCell cell : candTetromino){
@@ -84,9 +84,35 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
             }
         }
         fallingTet = candTetromino;
-        
+
         return true;
     }
 
+    /**
+     * selve metoden som flytter en brikke
+     * flytter ned så lenge den gir true, deretter lager en ny Tetromino, 
+     * og limer den andre fast
+     */
+    @Override
+    public void dropTetromino() {
+        while(moveTetromino(1, 0)){}
+        glueAndNewFalling();
+        
+    }
+
+    //en hjelpemetode for å hente en ny fallende tetromino
+    public Tetromino getNewTetromino(){
+        Tetromino newTetromino = factory.getNext();
+
+        return newTetromino.shiftedToTopCenterOf(board);
+    }
+
+    //limer først tetromino til brettet, og deretter endrer fallingTet til en ny tetromino
+    public void glueAndNewFalling(){
+        board.glueToBoard(fallingTet);
+        fallingTet = getNewTetromino();
+    }
+
+    
 
 }

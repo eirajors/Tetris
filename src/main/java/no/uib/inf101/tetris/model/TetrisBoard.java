@@ -7,6 +7,7 @@ import no.uib.inf101.grid.Grid;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.grid.IGrid;
+import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 public class TetrisBoard implements Iterable<GridCell>, GridDimension{
 
@@ -43,6 +44,16 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
             return true;
         }
         return false;
+    }
+
+    //en hjelpemetode for å lime fast den fallende tetrominoen til brettet(kan være i tetrisboard)
+    public final void glueToBoard(Tetromino tetromino){
+
+        for(GridCell cell : tetromino){
+
+            CellPosition pos = cell.pos();
+            grid.set(pos, cell.value());
+        }
     }
 
 }
