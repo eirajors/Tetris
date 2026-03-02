@@ -26,6 +26,9 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
     public TetrisModel(IGrid grid){
         this.board = new TetrisBoard(grid);
+        this.factory = new RandomTetrominoFactory();
+
+        this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(board);
     }
 
     @Override

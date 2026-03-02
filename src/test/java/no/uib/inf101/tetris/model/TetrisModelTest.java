@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import no.uib.inf101.grid.CellPosition;
+import no.uib.inf101.grid.Grid;
 import no.uib.inf101.grid.GridCell;
 
 public class TetrisModelTest {
 
     private TetrisModel model = new TetrisModel();
+    private Grid grid = new Grid(15, 10, '-');
     //teste
     //vellykket flytting returnerer true
     @Test
@@ -49,7 +51,6 @@ public class TetrisModelTest {
 
     @Test
     void testNotMoveOutsideBoard(){
-        //det er lagt inn i moveTetromino at dersom den er opptatt, vil den gi false
         ArrayList<CellPosition> positions = new ArrayList<>();
 
         for(GridCell cell : model.getFallingTetrominoCells()){
@@ -69,5 +70,21 @@ public class TetrisModelTest {
 
         assertEquals(positions, positionsAfter);
 
-    }    
+    }   
+    
+    @Test
+    void testIfCellIsOccupied(){
+        TetrisModel modelWithGrid = new TetrisModel(grid);
+        ArrayList<GridCell> cells = new ArrayList<>();
+        for(GridCell cell : modelWithGrid.getFallingTetrominoCells()){
+            cells.add(cell);
+        }
+        GridCell firstCell = cells.get(0);
+        CellPosition firstPos = firstCell.pos();
+
+        CellPosition blockCell = new CellPosition(firstPos.row(), firstPos.col()+1); 
+        grid.set(new CellPosition(blockCell), 'r');
+
+        assertFalse(modelWithGrid.moveTetromino(0,1));
+    }
 }

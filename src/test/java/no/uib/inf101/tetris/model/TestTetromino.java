@@ -64,4 +64,17 @@ public class TestTetromino {
 
         assertEquals(shiftedObj.pos, new CellPosition(2, 4));
     }
+
+    @Test
+    void testRotatedTetromino(){
+        boolean [][] rotatedTet =  {
+            {false, true, false},
+            {true, true, false}, 
+            {false, true, false}};
+
+        Tetromino tetromino = Tetromino.newTetromino('T');
+        tetromino.rotatedTetromino(tetromino);
+
+        assertEquals(rotatedTet, tetromino.);
+    }
 }

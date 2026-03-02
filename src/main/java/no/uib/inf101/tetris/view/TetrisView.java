@@ -6,7 +6,6 @@ import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.TetrisModel;
-import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -48,7 +47,7 @@ public class TetrisView extends JPanel {
                 OUTERMARGIN,
                 this.getWidth() - OUTERMARGIN * 2,
                 this.getHeight() - OUTERMARGIN * 2);
-        g2.setColor(null);
+        g2.setColor(colorTheme.getFrameColor());
         g2.fill(box);
 
         CellPositionToPixelConverter converter = new CellPositionToPixelConverter(box,
@@ -69,9 +68,9 @@ public class TetrisView extends JPanel {
             Character colorSymbol = cell.value();
 
             Color colorCell = null;
-            //if(colorSymbol=='-'){
-                //colorCell = Color.WHITE;
-            //}
+            if(colorSymbol=='-'){
+                colorCell = Color.WHITE;
+            }
             
                 colorCell = colorTheme.getCellColor(colorSymbol);
             

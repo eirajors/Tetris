@@ -116,5 +116,11 @@ public class Tetromino implements Iterable<GridCell>{
     public int hashCode(){
         return Objects.hash(symbol, Arrays.deepHashCode(matrise), pos); 
     }
+
+    public Tetromino rotatedTetromino(Tetromino tetromino){
+        boolean [][] rotatedTet;
+
+        return tetromino;
+    }
     
 }

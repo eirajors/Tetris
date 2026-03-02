@@ -29,17 +29,17 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getFrameColor() {
-        return new Color(0, 0, 0, 0);
+        return Color.WHITE;
     }
 
     @Override
     public Color getBackgroundColor() {
-        return null;
+        return Color.PINK;
     }
 
 	@Override
 	public Color getPopUpColor() {
-		return new Color(0, 0, 0, 128);
+		return Color.PINK;
 	}
 
 }

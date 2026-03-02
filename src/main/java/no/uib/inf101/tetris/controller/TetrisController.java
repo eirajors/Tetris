@@ -3,7 +3,6 @@ package no.uib.inf101.tetris.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.view.TetrisView;
 
 public class TetrisController implements KeyListener{
@@ -40,7 +39,6 @@ public class TetrisController implements KeyListener{
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             // Opp piltast ble trykket
-            model.moveTetromino(-1, 0);
         }
         else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             // Mellemromstasten ble trykket  
