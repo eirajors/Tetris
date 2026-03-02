@@ -6,7 +6,6 @@ import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.TetrisModel;
-import no.uib.inf101.tetris.model.ViewableTetrisModel;
 import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 import java.awt.Color;

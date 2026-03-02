@@ -10,9 +10,16 @@ public class TestPatterenedTetrominoFactory {
 
     @Test
     void TestGetNext(){
-        PatternedTetrominoFactory factory = new PatternedTetrominoFactory();
+        PatternedTetrominoFactory factory = new PatternedTetrominoFactory("LSJ");
 
+        assertEquals(Tetromino.newTetromino('L'), (factory.getNext()));
+        assertEquals(Tetromino.newTetromino('S'), (factory.getNext()));
         assertEquals(Tetromino.newTetromino('J'), (factory.getNext()));
+        assertEquals(Tetromino.newTetromino('L'), (factory.getNext()));
+        assertEquals(Tetromino.newTetromino('S'), (factory.getNext()));
+        assertEquals(Tetromino.newTetromino('J'), (factory.getNext()));
+
+
 
     }
 
