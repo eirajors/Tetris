@@ -95,7 +95,7 @@ Dette interfacet lar `TetrisView` hente informasjon om brettet, **uten å kunne 
 
 `TetrisView` vil kun ha tilgang til metodene i `TetrisModel` som har med visning å gjøre, ikke noe som tillater den å gjøre endrigner på modellen, f.eks. som å fjerne rader.
 
-`TetrisModel` implementerer allerede `ViewableTetrisModel`, men vi må fremdeles fylle ut disse metodene:  
+Opprett `ViewableTetrisModel` og la `TetrisModel` implementere `ViewableTetrisModel`, legg til disse metodene:  
 
 - **`getDimension`** – Skal returnere et objekt av typen `GridDimension`. Har vi et slikt objekt?  
 - **`getTilesOnBoard`** – Skal returnere et objekt av typen `Iterable<GridCell>`. Har vi et slikt objekt?
