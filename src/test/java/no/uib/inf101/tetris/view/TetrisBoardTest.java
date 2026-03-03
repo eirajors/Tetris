@@ -15,6 +15,8 @@ import no.uib.inf101.grid.Grid;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.IGrid;
 import no.uib.inf101.tetris.model.TetrisBoard;
+import no.uib.inf101.tetris.model.TetrisModel;
+import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 public class TetrisBoardTest {
     //ferdig
@@ -104,5 +106,38 @@ public class TetrisBoardTest {
         assertFalse(board.isFree(new CellPosition(2, 1)));
         
     }
+
+	//tester om det er like mange emptycells etter liming som at 
+	//hadde vært om det var en tetromino der.
+	//tester og om verdien i cellen er lik som det grid sin verdi, altså lik farge
+	@Test
+	void testGlueToBoard(){
+		Grid grid = new Grid(15,10,'-');
+
+		TetrisBoard board = new TetrisBoard(grid);
+
+		Tetromino tetromino = Tetromino.newTetromino('T');
+		tetromino.shiftedBy(5, 5);
+
+		board.glueToBoard(tetromino);
+
+		int emptyCells = 0;
+		for(GridCell cell : board){
+			if(board.isFree(cell.pos())){
+				emptyCells ++;
+			}
+		}
+
+		int tetCells = 0;
+		for(GridCell tetCell : tetromino){
+			tetCells ++;
+
+			CellPosition pos = tetCell.pos();
+			assertEquals(tetCell.value(), grid.get(pos));
+		}
+		assertEquals(emptyCells, 15 * 10 -tetCells);
+	}
+
+
 
 }

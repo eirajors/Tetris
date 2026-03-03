@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.Grid;
 import no.uib.inf101.grid.GridCell;
+import no.uib.inf101.grid.GridDimension;
 
 public class TetrisModelTest {
 
@@ -72,6 +73,7 @@ public class TetrisModelTest {
 
     }   
     
+    //tester om celler er okkupert, og at den ikke kan flyttes til okkupert celle
     @Test
     void testIfCellIsOccupied(){
         TetrisModel modelWithGrid = new TetrisModel(grid);
@@ -86,5 +88,31 @@ public class TetrisModelTest {
         grid.set(new CellPosition(blockCell), 'r');
 
         assertFalse(modelWithGrid.moveTetromino(0,1));
+    }
+
+    /*
+    * tester den har minst én celle nederst på brettet etter drop
+    * 
+    */
+    @Test
+    void testDropTetromino(){
+        TetrisModel modelAfterDrop = new TetrisModel();
+        modelAfterDrop.dropTetromino();
+
+        boolean isDropped = false;
+        Iterable<GridCell> boardIterable = modelAfterDrop.getTilesOnBoard();
+        GridDimension board = modelAfterDrop.getDimension();
+
+        for(GridCell cell : boardIterable){
+            if(cell.pos().row() == board.rows()-1){
+                if(cell.value() != '-'){
+                    isDropped = true;
+                }
+            }
+        }
+        assertTrue(isDropped);
+
+        assertFalse(modelAfterDrop.moveTetromino(1, 0));
+
     }
 }

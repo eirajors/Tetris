@@ -15,8 +15,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
 
     //konstruktør
     public TetrisBoard(IGrid grid){
-        this.grid = grid;
-        
+        this.grid = grid;   
     }
 
     public TetrisBoard(int rows, int cols){
@@ -47,6 +46,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
     }
 
     //en hjelpemetode for å lime fast den fallende tetrominoen til brettet(kan være i tetrisboard)
+    //fargelegger rutene, slik at de forblir den fargen
     public final void glueToBoard(Tetromino tetromino){
 
         for(GridCell cell : tetromino){
