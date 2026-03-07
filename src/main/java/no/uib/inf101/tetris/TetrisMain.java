@@ -2,7 +2,6 @@ package no.uib.inf101.tetris;
 
 import javax.swing.JFrame;
 
-import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.Grid;
 import no.uib.inf101.tetris.controller.TetrisController;
 //import no.uib.inf101.grid.Grid;

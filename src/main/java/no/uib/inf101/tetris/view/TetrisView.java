@@ -5,10 +5,12 @@ import javax.swing.JPanel;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
+import no.uib.inf101.tetris.model.GameState;
 import no.uib.inf101.tetris.model.TetrisModel;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -22,6 +24,7 @@ public class TetrisView extends JPanel {
 
     private ColorTheme colorTheme;
     private TetrisModel tetrisModel;
+    private GameState gameState;
     
     public TetrisView(TetrisModel tetrisModel) {
 
@@ -54,7 +57,23 @@ public class TetrisView extends JPanel {
                 tetrisModel.getDimension(), CELLMARGIN);
                 
         drawCells(g2, tetrisModel.getTilesOnBoard(), converter, colorTheme);
-        drawCells(g2, tetrisModel.getFallingTetrominoCells(), converter, colorTheme);
+        if(tetrisModel.getGameState() == GameState.ACTIVE_GAME){
+            drawCells(g2, tetrisModel.getFallingTetrominoCells(), converter, colorTheme);
+        }
+        else if(tetrisModel.getGameState() == GameState.GAME_OVER){
+            Rectangle2D box2 = new Rectangle2D.Double(
+                    OUTERMARGIN,
+                    OUTERMARGIN,
+                    this.getWidth() - OUTERMARGIN * 2,
+                    this.getHeight() - OUTERMARGIN * 2);
+            g2.setColor(new Color(0, 0, 0, 128));
+            g2.fill(box2);
+
+            g2.setFont(new Font("Dialoginput", Font.BOLD, 20));
+            g2.setColor(Color.RED);
+
+            g2.drawString("Game Over!", this.getWidth()/3, this.getHeight()/2);
+        }
 
     }
 

@@ -41,9 +41,10 @@ public class Tetromino implements Iterable<GridCell>{
             { true,  true,  true },
             { false, true,  false }});
         MATRISER.put('I', new boolean[][]{
-            { false, false, false },
-            { true,  true,  true },
-            { false, true,  false }});
+            { false, false, false, false },
+            { true,  true,  true, true },
+            { false, false,  false, false },
+            { false, false,  false, false }});
         MATRISER.put('O', new boolean[][]{
             { false, false, false, false },
             { false,  true,  true, false },

@@ -1,6 +1,5 @@
 package no.uib.inf101.tetris.model;
 
-import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.grid.IGrid;
@@ -13,8 +12,9 @@ import no.uib.inf101.tetris.view.ViewableTetrisModel;
 public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel{
 
     private TetrisBoard board;
-    private TetrominoFactory factory; 
+    private final TetrominoFactory factory; 
     private Tetromino fallingTet;
+    private GameState gameState = GameState.ACTIVE_GAME;
 
 
     public TetrisModel(){
@@ -51,24 +51,24 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
         Tetromino candidateTetromino = fallingTet.shiftedBy(deltaRow, deltaCol);
 
-        for(GridCell cell : candidateTetromino){
-            CellPosition pos = cell.pos();
-
-            if(!isLegalPosition(board, pos)){
-                return false; 
-            }
+        if(!isLegalPosition(candidateTetromino)){
+            return false; 
         }
+        
         fallingTet = candidateTetromino;
         return true;
     }
 
-    public boolean isLegalPosition(TetrisBoard board, CellPosition position){
-            if(!board.positionIsOnGrid(position)){
+    public boolean isLegalPosition(Tetromino tetromino){
+        for(GridCell cell : tetromino){
+            if(!board.positionIsOnGrid(cell.pos())){
                 return false; 
             }
-            if(!(board.isFree(position))){
+            if(!(board.isFree(cell.pos()))){
                 return false;
             }
+        }
+
         return true; 
     }
 
@@ -76,13 +76,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     public boolean rotateTetromino() {
         Tetromino candTetromino = fallingTet.rotatedTetromino(fallingTet);
 
-        for(GridCell cell : candTetromino){
-            CellPosition pos = cell.pos();
-
-            if(!isLegalPosition(board, pos)){
+        if(!isLegalPosition(candTetromino)){
                 return false; 
-            }
         }
+
         fallingTet = candTetromino;
 
         return true;
@@ -102,17 +99,26 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
     //en hjelpemetode for å hente en ny fallende tetromino
     public Tetromino getNewTetromino(){
-        Tetromino newTetromino = factory.getNext();
 
-        return newTetromino.shiftedToTopCenterOf(board);
+        Tetromino newTetromino = factory.getNext().shiftedToTopCenterOf(board);
+
+        return newTetromino;
     }
 
     //limer først tetromino til brettet, og deretter endrer fallingTet til en ny tetromino
     public void glueAndNewFalling(){
         board.glueToBoard(fallingTet);
         fallingTet = getNewTetromino();
-    }
 
+        if(!(isLegalPosition(fallingTet))){
+            gameState = GameState.GAME_OVER;
+        }
+    }
     
+
+    @Override
+    public GameState getGameState() {
+        return gameState;
+    }
 
 }

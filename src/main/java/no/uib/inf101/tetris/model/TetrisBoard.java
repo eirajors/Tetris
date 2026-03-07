@@ -1,5 +1,6 @@
 package no.uib.inf101.tetris.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import no.uib.inf101.grid.CellPosition;
@@ -54,6 +55,57 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
             CellPosition pos = cell.pos();
             grid.set(pos, cell.value());
         }
+    }
+
+    
+    void clearedFilledRows(){
+        
+
+    }
+
+    /**
+     * 
+     * @param row
+     * @return
+     */
+    boolean isRowFilled(int row){
+        int notFreeCells = 0;
+
+        for(GridCell cell : grid){
+            if(cell.pos().row() == row){
+                if(!isFree(cell.pos())){
+                    notFreeCells ++;
+                }
+            }
+        }
+
+        if(notFreeCells == grid.cols()){
+            return true; 
+        }
+        return false;
+    }
+
+    void removeRow(int row){
+        
+        for(GridCell cell : grid){
+            if(cell.pos().row() == row){
+                grid.set(cell.pos(), '-');            
+            }
+        }
+    }
+
+    void copyRowTo(int originalRow, int targetRow){
+        
+        for(int col = 0; col < grid.cols(); col++){
+            CellPosition originalCell = new CellPosition(originalRow, col);
+            CellPosition targetCell = new CellPosition(targetRow, col);
+
+            grid.set(targetCell, grid.get(originalCell));
+        }
+    }
+
+    void fillTopRowWithEmpty(int row){
+        
     }
 
 }

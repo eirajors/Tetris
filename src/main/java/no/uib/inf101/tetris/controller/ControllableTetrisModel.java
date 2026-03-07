@@ -1,6 +1,6 @@
 package no.uib.inf101.tetris.controller;
 
-import no.uib.inf101.tetris.model.tetromino.Tetromino;
+import no.uib.inf101.tetris.model.GameState;
 
 public interface ControllableTetrisModel {
 
@@ -9,4 +9,7 @@ public interface ControllableTetrisModel {
     public boolean rotateTetromino();
 
     public void dropTetromino();
+
+    GameState getGameState();
+
 }
