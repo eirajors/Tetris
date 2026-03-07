@@ -108,6 +108,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     //limer først tetromino til brettet, og deretter endrer fallingTet til en ny tetromino
     public void glueAndNewFalling(){
         board.glueToBoard(fallingTet);
+        board.clearRows();
         fallingTet = getNewTetromino();
 
         if(!(isLegalPosition(fallingTet))){

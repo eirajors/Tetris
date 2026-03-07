@@ -58,8 +58,17 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
     }
 
     
-    void clearedFilledRows(){
-        
+    public int clearRows(){
+        int clearedCount = 0; 
+
+        for(int r = grid.rows()-1; r >= 0; r--){
+            if(isRowFilled(r)){
+                removeRow(r);
+                r++;
+                clearedCount++;
+            }
+        }   
+        return clearedCount;     
 
     }
 
@@ -87,11 +96,10 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
 
     void removeRow(int row){
         
-        for(GridCell cell : grid){
-            if(cell.pos().row() == row){
-                grid.set(cell.pos(), '-');            
-            }
+        for(int r = row; r > 0; r--){
+            copyRowTo(r-1, r);
         }
+        fillTopRowWithEmpty(0);
     }
 
     void copyRowTo(int originalRow, int targetRow){
@@ -105,7 +113,11 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension{
     }
 
     void fillTopRowWithEmpty(int row){
-        
+        for(int col = 0; col < grid.cols(); col++){
+            CellPosition cellToFill = new CellPosition(row, col);
+
+            grid.set(cellToFill, '-');
+        }
     }
 
 }

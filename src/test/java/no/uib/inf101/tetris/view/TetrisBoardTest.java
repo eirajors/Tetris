@@ -138,6 +138,30 @@ public class TetrisBoardTest {
 		assertEquals(emptyCells, 15 * 10 -tetCells);
 	}
 
+	@Test
+    public void testFullRowClears() {
+    	
+    	int row = 10;
+    	
+      	Grid grid = new Grid(15,10,'-');
+      	for(CellPosition pos : grid.positions()) {
+      		if(pos.row()==10) {
+      			grid.set(pos, 'I');
+      		}
+      		if(pos.row()>10) {
+      			if((pos.row()+pos.col())%2==0)
+      				grid.set(pos, 'O');
+      		}
+      	}
+        TetrisBoard board = new TetrisBoard(grid);
+        int cleared = board.clearRows();
+
+        assertEquals(1, cleared);
+        
+        for(int col=0; col<10; col++) {
+       		assertTrue(board.isFree(new CellPosition(row,col)));
+        }
+    }
 
 
 }
