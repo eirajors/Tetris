@@ -12,7 +12,7 @@ public interface ControllableTetrisModel {
 
     GameState getGameState();
 
-    public int getTime();
+    public int getTimerDelay();
 
     public void clockTick();
 

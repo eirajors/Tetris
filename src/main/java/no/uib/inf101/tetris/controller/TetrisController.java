@@ -1,21 +1,34 @@
 package no.uib.inf101.tetris.controller;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.Timer;
+
+import no.uib.inf101.tetris.midi.TetrisSong;
+import no.uib.inf101.tetris.model.GameState;
 import no.uib.inf101.tetris.view.TetrisView;
 
 public class TetrisController implements KeyListener{
 
     ControllableTetrisModel model; 
     TetrisView tetrisView;
+    Timer timer; 
+    TetrisSong song; 
 
     public TetrisController(ControllableTetrisModel model, TetrisView tetrisView){
         this.model = model;
         this.tetrisView = tetrisView;
+        this.timer = new Timer(model.getTimerDelay(), this::clockTick);
+        this.song = new TetrisSong(); 
+
 
         tetrisView.addKeyListener(this);
         tetrisView.setFocusable(true);
+
+        timer.start();
+        song.run();
 
     }
 
@@ -36,6 +49,7 @@ public class TetrisController implements KeyListener{
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             // Ned piltast ble trykket
             model.moveTetromino(1, 0);
+            timer.restart();
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             // Opp piltast ble trykket
@@ -45,6 +59,7 @@ public class TetrisController implements KeyListener{
             // Mellemromstasten ble trykket  
             //while(model.moveTetromino(1, 0));
             model.dropTetromino();
+            timer.restart();
         }
         tetrisView.repaint();
     }
@@ -54,4 +69,21 @@ public class TetrisController implements KeyListener{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
     }
+
+    void clockTick(ActionEvent a){
+        GameState gameState = model.getGameState();
+
+        if(gameState == GameState.ACTIVE_GAME){
+            model.clockTick();
+            updateTimerDelay();
+            tetrisView.repaint();
+        }
+    }
+
+    void updateTimerDelay(){
+        int delay = model.getTimerDelay(); 
+        timer.setDelay(delay);
+        timer.setInitialDelay(delay);
+    }
+
 }

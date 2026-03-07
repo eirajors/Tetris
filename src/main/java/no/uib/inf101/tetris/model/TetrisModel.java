@@ -123,7 +123,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     }
 
     @Override
-    public int getTime() {
+    public int getTimerDelay() {
         return 1000; 
     }
 
