@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -114,5 +115,26 @@ public class TetrisModelTest {
 
         assertFalse(modelAfterDrop.moveTetromino(1, 0));
 
+    }
+
+    @Test
+    void testClockTick(){
+        TetrisModel model = new TetrisModel(); 
+
+        ArrayList<CellPosition> cellsBefore = new ArrayList<>(); 
+
+        for(GridCell cellBefore : model.getFallingTetrominoCells()){
+            cellsBefore.add(cellBefore.pos());
+        }
+
+        model.clockTick();
+
+        ArrayList<CellPosition> cellsAfter = new ArrayList<>(); 
+
+        for(GridCell cellAfter : model.getFallingTetrominoCells()){
+            cellsAfter.add(cellAfter.pos());
+        }
+
+        assertFalse(cellsBefore.equals(cellsAfter));
     }
 }

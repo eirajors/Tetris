@@ -122,4 +122,18 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         return gameState;
     }
 
+    @Override
+    public int getTime() {
+        return 1000; 
+    }
+
+    @Override
+    public void clockTick() {
+        boolean move = moveTetromino(1, 0); 
+
+        if(!move){
+            glueAndNewFalling();
+        }
+    }
+
 }
