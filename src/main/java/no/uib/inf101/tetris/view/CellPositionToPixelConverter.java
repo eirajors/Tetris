@@ -22,6 +22,7 @@ public class CellPositionToPixelConverter {
     double cellH = (box.getHeight() - margin * gd.rows() - margin) / gd.rows();
     double cellX = box.getX() + margin + (cellW + margin) * cellPosition.col();
     double cellY = box.getY() + margin + (cellH + margin) * cellPosition.row();
+    
     return new Rectangle2D.Double(cellX, cellY, cellW, cellH);
   }
 

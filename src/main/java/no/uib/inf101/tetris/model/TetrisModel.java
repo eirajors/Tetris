@@ -11,7 +11,7 @@ import no.uib.inf101.tetris.view.ViewableTetrisModel;
 
 public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel {
 
-  private TetrisBoard board;
+  private final TetrisBoard board;
   private final TetrominoFactory factory;
   private Tetromino fallingTet;
   private GameState gameState = GameState.ACTIVE_GAME;
@@ -58,7 +58,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     return true;
   }
 
-  public boolean isLegalPosition(Tetromino tetromino) {
+  private boolean isLegalPosition(Tetromino tetromino) {
     for (GridCell cell : tetromino) {
       if (!board.positionIsOnGrid(cell.pos())) {
         return false;
@@ -97,7 +97,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
   }
 
   // en hjelpemetode for å hente en ny fallende tetromino
-  public Tetromino getNewTetromino() {
+  private Tetromino getNewTetromino() {
 
     Tetromino newTetromino = factory.getNext().shiftedToTopCenterOf(board);
 
@@ -106,7 +106,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   // limer først tetromino til brettet, og deretter endrer fallingTet til en ny
   // tetromino
-  public void glueAndNewFalling() {
+  private void glueAndNewFalling() {
     board.glueToBoard(fallingTet);
     board.clearRows();
     fallingTet = getNewTetromino();

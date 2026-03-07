@@ -5,11 +5,15 @@ import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.GameState;
 
 public interface ViewableTetrisModel {
+  /** @return the board dimensions */
   GridDimension getDimension();
 
+  /** @return all fixed tiles currently on the board */
   Iterable<GridCell> getTilesOnBoard();
-
+  
+  /** @return the cells of the currently falling tetromino */
   Iterable<GridCell> getFallingTetrominoCells();
 
+  /** @return the current game state */
   GameState getGameState();
 }

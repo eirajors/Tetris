@@ -21,8 +21,8 @@ public class TetrisView extends JPanel {
   public static final int CELLMARGIN = 1;
   public static final int PREFERREDSIDESIZE = 30;
 
-  private ColorTheme colorTheme;
-  private TetrisModel tetrisModel;
+  private final ColorTheme colorTheme;
+  private final TetrisModel tetrisModel;
   private GameState gameState;
 
   public TetrisView(TetrisModel tetrisModel) {
@@ -77,13 +77,8 @@ public class TetrisView extends JPanel {
       Rectangle2D cellArea = converter.getBoundsForCell(cellPos);
 
       Character colorSymbol = cell.value();
-
-      Color colorCell = null;
-      if (colorSymbol == '-') {
-        colorCell = Color.WHITE;
-      }
-
-      colorCell = colorTheme.getCellColor(colorSymbol);
+      
+      Color colorCell = colorTheme.getCellColor(colorSymbol);
 
       g2.setColor(colorCell);
       g2.fill(cellArea);

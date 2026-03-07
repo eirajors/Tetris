@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class RowWiseGridIterator implements Iterator<GridCell> {
 
   private CellPosition next;
-  private IGrid grid;
+  private final IGrid grid;
 
   // konstruktør
   public RowWiseGridIterator(IGrid grid) {

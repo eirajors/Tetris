@@ -12,11 +12,12 @@ import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 
 public class Tetromino implements Iterable<GridCell> {
-  private static ArrayList<Character> legalSymbols = new ArrayList<Character>(
-      List.of('L', 'J', 'S', 'Z', 'T', 'I', 'O'));
-  private char symbol;
-  private boolean[][] matrise;
-  public CellPosition pos;
+
+  private static final List<Character> LEGAL_SYMBOLS = 
+    List.of('L', 'J', 'S', 'Z', 'T', 'I', 'O');
+  private final char symbol;
+  private final boolean[][] matrise;
+  public final CellPosition pos;
 
   private static final HashMap<Character, boolean[][]> MATRISER = new HashMap<>();
 
@@ -41,7 +42,7 @@ public class Tetromino implements Iterable<GridCell> {
 
   public static Tetromino newTetromino(char symbol) {
 
-    if (!legalSymbols.contains(symbol)) {
+    if (!LEGAL_SYMBOLS.contains(symbol)) {
       throw new IllegalArgumentException();
     }
     boolean[][] newMatrise = MATRISER.get(symbol);

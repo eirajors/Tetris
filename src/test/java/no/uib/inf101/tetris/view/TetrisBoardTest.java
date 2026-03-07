@@ -15,7 +15,6 @@ import no.uib.inf101.grid.Grid;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.IGrid;
 import no.uib.inf101.tetris.model.TetrisBoard;
-import no.uib.inf101.tetris.model.TetrisModel;
 import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 public class TetrisBoardTest {

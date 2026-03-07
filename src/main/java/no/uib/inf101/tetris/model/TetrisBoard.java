@@ -1,6 +1,5 @@
 package no.uib.inf101.tetris.model;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import no.uib.inf101.grid.CellPosition;
@@ -12,7 +11,7 @@ import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 public class TetrisBoard implements Iterable<GridCell>, GridDimension {
 
-  private IGrid grid;
+  private final IGrid grid;
 
   // konstruktør
   public TetrisBoard(IGrid grid) {
@@ -77,7 +76,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
    * @param row
    * @return
    */
-  boolean isRowFilled(int row) {
+  private boolean isRowFilled(int row) {
     int notFreeCells = 0;
 
     for (GridCell cell : grid) {
@@ -94,7 +93,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     return false;
   }
 
-  void removeRow(int row) {
+  private void removeRow(int row) {
 
     for (int r = row; r > 0; r--) {
       copyRowTo(r - 1, r);
@@ -102,7 +101,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     fillTopRowWithEmpty(0);
   }
 
-  void copyRowTo(int originalRow, int targetRow) {
+  private void copyRowTo(int originalRow, int targetRow) {
 
     for (int col = 0; col < grid.cols(); col++) {
       CellPosition originalCell = new CellPosition(originalRow, col);
@@ -112,7 +111,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     }
   }
 
-  void fillTopRowWithEmpty(int row) {
+  private void fillTopRowWithEmpty(int row) {
     for (int col = 0; col < grid.cols(); col++) {
       CellPosition cellToFill = new CellPosition(row, col);
 
