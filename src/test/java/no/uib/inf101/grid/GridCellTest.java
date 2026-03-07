@@ -24,7 +24,7 @@ public class GridCellTest {
 
   @Test
   void gridCellEqualityAndHashCodeTest() {
-	  Character item = 'C';
+    Character item = 'C';
     CellPosition pos = new CellPosition(4, 2);
     GridCell gridCell = new GridCell(pos, item);
 
@@ -40,7 +40,7 @@ public class GridCellTest {
 
   @Test
   void gridCellInequalityTest() {
-	Character item = 'C';
+    Character item = 'C';
     CellPosition pos = new CellPosition(4, 2);
     GridCell gridCell = new GridCell(pos, item);
 

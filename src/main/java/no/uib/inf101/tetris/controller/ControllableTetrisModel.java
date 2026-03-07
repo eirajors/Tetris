@@ -4,16 +4,16 @@ import no.uib.inf101.tetris.model.GameState;
 
 public interface ControllableTetrisModel {
 
-    public boolean moveTetromino(int deltaRow, int deltaCol);
+  public boolean moveTetromino(int deltaRow, int deltaCol);
 
-    public boolean rotateTetromino();
+  public boolean rotateTetromino();
 
-    public void dropTetromino();
+  public void dropTetromino();
 
-    GameState getGameState();
+  GameState getGameState();
 
-    public int getTimerDelay();
+  public int getTimerDelay();
 
-    public void clockTick();
+  public void clockTick();
 
 }

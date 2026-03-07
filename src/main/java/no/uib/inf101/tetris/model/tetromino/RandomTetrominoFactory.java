@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomTetrominoFactory implements TetrominoFactory{
+public class RandomTetrominoFactory implements TetrominoFactory {
 
-    private final Random random = new Random();
-    
-    public Tetromino getNext(){
+  private final Random random = new Random();
 
-        List<Character> symboler = new ArrayList<>(List.of('L', 'J', 'S', 'Z', 'T', 'I', 'O'));
+  public Tetromino getNext() {
 
-        int index = random.nextInt(symboler.size());
+    List<Character> symboler = new ArrayList<>(List.of('L', 'J', 'S', 'Z', 'T', 'I', 'O'));
 
-        char c = symboler.get(index);
+    int index = random.nextInt(symboler.size());
 
-        return Tetromino.newTetromino(c);
-    }
+    char c = symboler.get(index);
+
+    return Tetromino.newTetromino(c);
+  }
 
 }

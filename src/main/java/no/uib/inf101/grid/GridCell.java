@@ -1,4 +1,4 @@
 package no.uib.inf101.grid;
 
-public record GridCell(CellPosition pos, Character value) {    
+public record GridCell(CellPosition pos, Character value) {
 }
