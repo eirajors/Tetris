@@ -137,10 +137,14 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
   private void glueAndNewFalling() {
     board.glueToBoard(fallingTet);
     board.clearRows();
-    fallingTet = getNewTetromino();
 
-    if (!(isLegalPosition(fallingTet))) {
+    Tetromino candidate = getNewTetromino(); 
+
+    if (!(isLegalPosition(candidate))) {
       gameState = GameState.GAME_OVER;
+    }
+    else{
+      fallingTet = candidate; 
     }
   }
 
