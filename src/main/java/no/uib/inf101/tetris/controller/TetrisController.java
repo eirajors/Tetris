@@ -10,6 +10,12 @@ import no.uib.inf101.tetris.midi.TetrisSong;
 import no.uib.inf101.tetris.model.GameState;
 import no.uib.inf101.tetris.view.TetrisView;
 
+/**
+ * Handles user input and connects the Tetris model with the view
+ * 
+ * The controller listens to keyboard input and controls the game
+ * by calling methods in the model
+ */
 public class TetrisController implements KeyListener{
 
     ControllableTetrisModel model; 
@@ -17,6 +23,12 @@ public class TetrisController implements KeyListener{
     Timer timer; 
     TetrisSong song; 
 
+    /**
+     * Creates a controller for the Tetris game
+     * 
+     * @param model the controllable game model
+     * @param tetrisView the view used to display the game
+     */
     public TetrisController(ControllableTetrisModel model, TetrisView tetrisView){
         this.model = model;
         this.tetrisView = tetrisView;
@@ -70,6 +82,10 @@ public class TetrisController implements KeyListener{
         throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
     }
 
+    /**
+     * Called by the timer to update the game state
+     * @param a
+     */
     void clockTick(ActionEvent a){
         GameState gameState = model.getGameState();
 
@@ -80,6 +96,9 @@ public class TetrisController implements KeyListener{
         }
     }
 
+    /**
+     * Updates the timer delay based on the model's timer setting
+     */
     void updateTimerDelay(){
         int delay = model.getTimerDelay(); 
         timer.setDelay(delay);

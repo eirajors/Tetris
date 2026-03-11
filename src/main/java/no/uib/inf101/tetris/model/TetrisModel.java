@@ -9,6 +9,12 @@ import no.uib.inf101.tetris.model.tetromino.Tetromino;
 import no.uib.inf101.tetris.model.tetromino.TetrominoFactory;
 import no.uib.inf101.tetris.view.ViewableTetrisModel;
 
+/**
+ * The main game model for Tetris
+ * 
+ * This class controls the game logic including: movement of tetrominos, rotation, 
+ * dropping pieces, clearing rows, detecting game over
+ */
 public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel {
 
   private final TetrisBoard board;
@@ -16,13 +22,26 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
   private Tetromino fallingTet;
   private GameState gameState = GameState.ACTIVE_GAME;
 
+  /**
+   * Creates a new TetrisModel with default board size of 15 rows and 10 columns
+   * 
+   * A new random tetromino is generated and positioned at the top center of the board
+   * The game state is initialized to ACTIVE_GAME
+   */
   public TetrisModel() {
     this.board = new TetrisBoard(15, 10);
     this.factory = new RandomTetrominoFactory();
 
     this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(board);
   }
-
+  /**
+   * Creates a new TetrisModel using an existing grid as the underlying board
+   * 
+   * @param grid an existing grid defining the board layout, cannot be null
+   * 
+   * A new random tetromino is generated and positioned at the top center of the board
+   * The game state is initialized to ACTIVE_GAME
+   */
   public TetrisModel(IGrid grid) {
     this.board = new TetrisBoard(grid);
     this.factory = new RandomTetrominoFactory();
@@ -58,6 +77,12 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     return true;
   }
 
+  /**
+   * Checks if every cell in a given tetromino is on the grid 
+   * 
+   * @param tetromino the tetromino which cells are iterated through
+   * @return true if the whole tetromino is on the grid, and false otherwise
+   */
   private boolean isLegalPosition(Tetromino tetromino) {
     for (GridCell cell : tetromino) {
       if (!board.positionIsOnGrid(cell.pos())) {
@@ -84,10 +109,6 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     return true;
   }
 
-  /**
-   * selve metoden som flytter en brikke flytter ned så lenge den gir true,
-   * deretter lager en ny Tetromino, og limer den andre fast
-   */
   @Override
   public void dropTetromino() {
     while (moveTetromino(1, 0)) {
@@ -96,7 +117,12 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   }
 
-  // en hjelpemetode for å hente en ny fallende tetromino
+  /**
+   * A help method that makes a new Tetromino, and centers it at the top 
+   * of the board
+   * 
+   * @return a new falling tetromino
+   */
   private Tetromino getNewTetromino() {
 
     Tetromino newTetromino = factory.getNext().shiftedToTopCenterOf(board);
@@ -104,8 +130,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     return newTetromino;
   }
 
-  // limer først tetromino til brettet, og deretter endrer fallingTet til en ny
-  // tetromino
+  /**
+   * Glues the current falling tetromino to the board, and then
+   * gets a new falling tetromino 
+   */
   private void glueAndNewFalling() {
     board.glueToBoard(fallingTet);
     board.clearRows();
