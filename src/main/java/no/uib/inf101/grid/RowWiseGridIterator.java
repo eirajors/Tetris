@@ -2,12 +2,22 @@ package no.uib.inf101.grid;
 
 import java.util.Iterator;
 
+/**
+ * Iterator that iterates through all cells in a grid row by row
+ * 
+ * Each call to next() returns a GridCell containing the position
+ * and the value stored at that position
+ */
 public class RowWiseGridIterator implements Iterator<GridCell> {
 
   private CellPosition next;
   private final IGrid grid;
 
-  // konstruktør
+  /**
+   * Creates an iterator for the given grid
+   * 
+   * @param grid the grid to iterate through
+   */
   public RowWiseGridIterator(IGrid grid) {
     this.next = new CellPosition(0, 0);
     this.grid = grid;
@@ -21,7 +31,7 @@ public class RowWiseGridIterator implements Iterator<GridCell> {
     if (next.col() + 1 < 0) {
       throw new IllegalArgumentException("Col cannot be a negative number.");
     }
-    return next.row() + 1 <= grid.rows();
+    return grid.positionIsOnGrid(next);
   }
 
   @Override

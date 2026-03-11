@@ -15,16 +15,27 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Graphical view of the Tetris game
+ * 
+ * TetrisView is responsible for drawing the game board, the falling
+ * tetromino, and the game on the screen.
+ */
 public class TetrisView extends JPanel {
 
-  public static final int OUTERMARGIN = 15;
-  public static final int CELLMARGIN = 1;
-  public static final int PREFERREDSIDESIZE = 30;
+  public static final int OUTERMARGIN = 15; //Margin between the board and the edge of the panel
+  public static final int CELLMARGIN = 1; //Margin betweenindividual cells
+  public static final int PREFERREDSIDESIZE = 30; //Preferred pixel size of each cell
 
   private final ColorTheme colorTheme;
   private final TetrisModel tetrisModel;
   private GameState gameState;
 
+  /**
+   * Creates a new view for the given TetrisModel
+   * 
+   * @param tetrisModel the model containing the current gameState
+   */
   public TetrisView(TetrisModel tetrisModel) {
 
     this.tetrisModel = tetrisModel;
@@ -43,6 +54,11 @@ public class TetrisView extends JPanel {
     drawGame(g2);
   }
 
+  /**
+   * Draws the entire game in its current GameState.
+   * 
+   * @param g2 the graphics object used to draw the game
+   */
   private void drawGame(Graphics2D g2) {
     Rectangle2D box = new Rectangle2D.Double(OUTERMARGIN, OUTERMARGIN, this.getWidth() - OUTERMARGIN * 2,
         this.getHeight() - OUTERMARGIN * 2);
@@ -69,6 +85,14 @@ public class TetrisView extends JPanel {
 
   }
 
+  /**
+   * Draws a collection of GridCells using the provided converter and colortheme
+   * 
+   * @param g2 the graphics object used to draw the game
+   * @param iterable the cells to draw
+   * @param converter converts cells posistions to pixel coordinates
+   * @param colorTheme provides colors for cells
+   */
   private static void drawCells(Graphics2D g2, Iterable<GridCell> iterable, CellPositionToPixelConverter converter,
       ColorTheme colorTheme) {
     for (GridCell cell : iterable) {
@@ -77,7 +101,7 @@ public class TetrisView extends JPanel {
       Rectangle2D cellArea = converter.getBoundsForCell(cellPos);
 
       Character colorSymbol = cell.value();
-      
+
       Color colorCell = colorTheme.getCellColor(colorSymbol);
 
       g2.setColor(colorCell);
@@ -85,6 +109,11 @@ public class TetrisView extends JPanel {
     }
   }
 
+  /**
+   * Calculates the preferred size of the game panel given the grid dimensions
+   * @param gd the grid dimensions of the game board
+   * @return the preferred panel size
+   */
   private static Dimension getDefaultSize(GridDimension gd) {
     int width = (int) (PREFERREDSIDESIZE * gd.cols() + CELLMARGIN * (gd.cols() + 1) + 2 * OUTERMARGIN);
     int height = (int) (PREFERREDSIDESIZE * gd.rows() + CELLMARGIN * (gd.cols() + 1) + 2 * OUTERMARGIN);

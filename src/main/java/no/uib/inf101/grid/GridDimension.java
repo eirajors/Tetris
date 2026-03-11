@@ -1,5 +1,11 @@
 package no.uib.inf101.grid;
 
+/**
+ * Represents the dimensions of a grid
+ * 
+ * A GridDimension provides information about the number of rows and columns 
+ * in a grid and methods for working with positions within the grid
+ */
 public interface GridDimension {
 
   /** Number of rows in the grid */
@@ -8,6 +14,12 @@ public interface GridDimension {
   /** Number of columns in the grid */
   int cols();
 
+
+  /**
+   * Returns an iterable over all positions in the grid
+   * 
+   * @return an iterable containing all cell positions
+   */
   default Iterable<CellPosition> positions() {
     return new Positions(this);
   }

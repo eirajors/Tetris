@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/** Factory that generates random Tetromino objects */
 public class RandomTetrominoFactory implements TetrominoFactory {
 
   private final Random random = new Random();
 
+  @Override
   public Tetromino getNext() {
-
     List<Character> symboler = new ArrayList<>(List.of('L', 'J', 'S', 'Z', 'T', 'I', 'O'));
 
     int index = random.nextInt(symboler.size());

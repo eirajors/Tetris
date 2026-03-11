@@ -2,14 +2,21 @@ package no.uib.inf101.grid;
 
 import java.util.Iterator;
 
+/**
+ * A two-dimensional grid storing Character values*/
 public class Grid implements IGrid {
 
-  // Character [][] grid;
   Character[][] grid;
   int rows;
   int cols;
 
-  // konstruktør
+  /**
+   * Creates an empty grid with the given number of rows and columns
+   * 
+   * @param rows the number of rows in the grid
+   * @param cols the number of columns in the grid
+   * @throws IllegalArgumentException if rows or cols are negative
+   */
   public Grid(int rows, int cols) {
     if (rows < 0 || cols < 0) {
       throw new IllegalArgumentException();
@@ -19,13 +26,18 @@ public class Grid implements IGrid {
     this.grid = new Character[rows][cols];
   }
 
+  /**
+   * Creates a grid with given dimensions and fills all cells with provided default value
+   * 
+   * @param rows the number of rows in the grid
+   * @param cols the number of columns in the grid
+   * @param defaultValue the value that every cell in the grid is initialized with 
+   */
   public Grid(int rows, int cols, Character defaultValue) {
     this.rows = rows;
     this.cols = cols;
     this.grid = new Character[rows][cols];
-
-    // sette inn default value i alle plasser i grid
-
+    
     for (int r = 0; r < (grid.length); r++) {
       for (int c = 0; c < (grid[0].length); c++) {
         grid[r][c] = defaultValue;
@@ -42,10 +54,6 @@ public class Grid implements IGrid {
   public int cols() {
     return cols;
   }
-
-  // public Iterable<CellPosition> position(){
-  // return new Positions(this);
-  // }
 
   @Override
   public Iterator<GridCell> iterator() {

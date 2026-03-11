@@ -2,10 +2,20 @@ package no.uib.inf101.grid;
 
 import java.util.Iterator;
 
+/** 
+ * An Iterable that provides all positions in a grid
+ * 
+ * The positions are iterated row by row starting from (0,0)
+ */
 public class Positions implements Iterable<CellPosition> {
 
   private GridDimension grid;
 
+  /**
+   * Creates a Positions iterable for the given grid
+   * 
+   * @param grid the grid whose positions should be iterated over
+   */
   public Positions(GridDimension grid) {
     this.grid = grid;
   }
@@ -14,9 +24,11 @@ public class Positions implements Iterable<CellPosition> {
   public Iterator<CellPosition> iterator() {
     return new PositionIterator(grid);
   }
-
 }
 
+/**
+ * Iterator that iterates through all positions in a grid row by row
+ */
 class PositionIterator implements Iterator<CellPosition> {
 
   private GridDimension grid;

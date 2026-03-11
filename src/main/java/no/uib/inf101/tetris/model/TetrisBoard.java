@@ -9,11 +9,18 @@ import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.grid.IGrid;
 import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
+/**
+ * Represents the board where tetrominoes are placed
+ * 
+ * The board stores the placed tiles and supports operations such as
+ * checking if a position is free, gluing tetrominoes to the board
+ * and clearing filled rows
+ */
 public class TetrisBoard implements Iterable<GridCell>, GridDimension {
 
   private final IGrid grid;
 
-  // konstruktør
+  // Constructor
   public TetrisBoard(IGrid grid) {
     this.grid = grid;
   }
@@ -37,17 +44,24 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     return grid.iterator();
   }
 
+  /**
+   * Checks whether a position on the board is empty
+   * 
+   * @param pos the position to check
+   * @return true if the position is empty (symbol is '-'), false otherwise
+   */
   public boolean isFree(CellPosition pos) {
-    // hvis fargesymbolet i cellen er '-'(tom), returner true, hvis ikke false
     if (grid.get(pos) == '-') {
       return true;
     }
     return false;
   }
 
-  // en hjelpemetode for å lime fast den fallende tetrominoen til brettet(kan være
-  // i tetrisboard)
-  // fargelegger rutene, slik at de forblir den fargen
+  /**
+   * Permanently places a tetromino on the board
+   * 
+   * @param tetromino the tetromino to glue to the board
+   */
   public final void glueToBoard(Tetromino tetromino) {
 
     for (GridCell cell : tetromino) {
@@ -57,6 +71,13 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     }
   }
 
+  /**
+   * Removes a all completely filled rows from the board
+   * 
+   * Rows above cleared rows are shifted downward
+   * 
+   * @return the number of the rows that were cleared
+   */
   public int clearRows() {
     int clearedCount = 0;
 
@@ -72,9 +93,10 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
   }
 
   /**
+   * Checks whether a given row on the board is completely filled
    * 
-   * @param row
-   * @return
+   * @param row the row index to check
+   * @return true if all cells in the row are occupied, false otherwise
    */
   private boolean isRowFilled(int row) {
     int notFreeCells = 0;
@@ -93,6 +115,13 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     return false;
   }
 
+  /**
+   * Removes a row from the board by shifting all rows above it down by one
+   * 
+   * The top row is then filled with empty cells
+   * 
+   * @param row the row to remove
+   */
   private void removeRow(int row) {
 
     for (int r = row; r > 0; r--) {
@@ -101,6 +130,12 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     fillTopRowWithEmpty(0);
   }
 
+  /**
+   * Copies the values of one given row to another given row
+   * 
+   * @param originalRow the row to copy from
+   * @param targetRow the row to copy to
+   */
   private void copyRowTo(int originalRow, int targetRow) {
 
     for (int col = 0; col < grid.cols(); col++) {
@@ -111,6 +146,11 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     }
   }
 
+  /**
+   * Fills a row with empty cells
+   * 
+   * @param row the row to fill with empty values
+   */
   private void fillTopRowWithEmpty(int row) {
     for (int col = 0; col < grid.cols(); col++) {
       CellPosition cellToFill = new CellPosition(row, col);
