@@ -9,7 +9,7 @@ import java.util.Iterator;
  */
 public class Positions implements Iterable<CellPosition> {
 
-  private GridDimension grid;
+  private final GridDimension grid;
 
   /**
    * Creates a Positions iterable for the given grid
@@ -22,7 +22,7 @@ public class Positions implements Iterable<CellPosition> {
 
   @Override
   public Iterator<CellPosition> iterator() {
-    return new PositionIterator(grid);
+    return new PositionIterator(this.grid);
   }
 }
 
@@ -31,24 +31,25 @@ public class Positions implements Iterable<CellPosition> {
  */
 class PositionIterator implements Iterator<CellPosition> {
 
-  private GridDimension grid;
-  private CellPosition current = new CellPosition(0, 0);
+  private final GridDimension grid;
+  private CellPosition current;
 
   public PositionIterator(GridDimension grid) {
     this.grid = grid;
+    this.current = new CellPosition(0, 0);
   }
 
   @Override
   public boolean hasNext() {
-    return grid.positionIsOnGrid(current);
+    return this.grid.positionIsOnGrid(this.current);
   }
 
   @Override
   public CellPosition next() {
-    CellPosition next = current;
-    current = new CellPosition(current.row(), current.col() + 1);
-    if (!grid.positionIsOnGrid(current)) {
-      current = new CellPosition(current.row() + 1, 0);
+    CellPosition next = this.current;
+    this.current = new CellPosition(this.current.row(), this.current.col() + 1);
+    if (!this.grid.positionIsOnGrid(this.current)) {
+      this.current = new CellPosition(this.current.row() + 1, 0);
     }
     return next;
   }

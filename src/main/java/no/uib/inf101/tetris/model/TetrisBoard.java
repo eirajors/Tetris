@@ -31,17 +31,17 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
 
   @Override
   public int rows() {
-    return grid.rows();
+    return this.grid.rows();
   }
 
   @Override
   public int cols() {
-    return grid.cols();
+    return this.grid.cols();
   }
 
   @Override
   public Iterator<GridCell> iterator() {
-    return grid.iterator();
+    return this.grid.iterator();
   }
 
   /**
@@ -51,7 +51,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
    * @return true if the position is empty (symbol is '-'), false otherwise
    */
   public boolean isFree(CellPosition pos) {
-    if (grid.get(pos) == '-') {
+    if (this.grid.get(pos) == '-') {
       return true;
     }
     return false;
@@ -67,7 +67,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     for (GridCell cell : tetromino) {
 
       CellPosition pos = cell.pos();
-      grid.set(pos, cell.value());
+      this.grid.set(pos, cell.value());
     }
   }
 
@@ -81,7 +81,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
   public int clearRows() {
     int clearedCount = 0;
 
-    for (int r = grid.rows() - 1; r >= 0; r--) {
+    for (int r = this.grid.rows() - 1; r >= 0; r--) {
       if (isRowFilled(r)) {
         removeRow(r);
         r++;
@@ -101,7 +101,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
   private boolean isRowFilled(int row) {
     int notFreeCells = 0;
 
-    for (GridCell cell : grid) {
+    for (GridCell cell : this.grid) {
       if (cell.pos().row() == row) {
         if (!isFree(cell.pos())) {
           notFreeCells++;
@@ -109,7 +109,7 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
       }
     }
 
-    if (notFreeCells == grid.cols()) {
+    if (notFreeCells == this.grid.cols()) {
       return true;
     }
     return false;
@@ -138,11 +138,11 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
    */
   private void copyRowTo(int originalRow, int targetRow) {
 
-    for (int col = 0; col < grid.cols(); col++) {
+    for (int col = 0; col < this.grid.cols(); col++) {
       CellPosition originalCell = new CellPosition(originalRow, col);
       CellPosition targetCell = new CellPosition(targetRow, col);
 
-      grid.set(targetCell, grid.get(originalCell));
+      grid.set(targetCell, this.grid.get(originalCell));
     }
   }
 
@@ -152,10 +152,10 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
    * @param row the row to fill with empty values
    */
   private void fillTopRowWithEmpty(int row) {
-    for (int col = 0; col < grid.cols(); col++) {
+    for (int col = 0; col < this.grid.cols(); col++) {
       CellPosition cellToFill = new CellPosition(row, col);
 
-      grid.set(cellToFill, '-');
+      this.grid.set(cellToFill, '-');
     }
   }
 

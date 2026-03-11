@@ -18,10 +18,10 @@ import no.uib.inf101.tetris.view.TetrisView;
  */
 public class TetrisController implements KeyListener{
 
-    ControllableTetrisModel model; 
-    TetrisView tetrisView;
-    Timer timer; 
-    TetrisSong song; 
+    private final ControllableTetrisModel model; 
+    private final TetrisView tetrisView;
+    private final Timer timer; 
+    private final TetrisSong song; 
 
     /**
      * Creates a controller for the Tetris game
@@ -36,11 +36,11 @@ public class TetrisController implements KeyListener{
         this.song = new TetrisSong(); 
 
 
-        tetrisView.addKeyListener(this);
-        tetrisView.setFocusable(true);
+        this.tetrisView.addKeyListener(this);
+        this.tetrisView.setFocusable(true);
 
-        timer.start();
-        song.run();
+        this.timer.start();
+        this.song.run();
 
     }
 
@@ -53,27 +53,27 @@ public class TetrisController implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            model.moveTetromino(0, -1);
+            this.model.moveTetromino(0, -1);
         }
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            model.moveTetromino(0, 1);
+            this.model.moveTetromino(0, 1);
         }
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             // Ned piltast ble trykket
-            model.moveTetromino(1, 0);
-            timer.restart();
+            this.model.moveTetromino(1, 0);
+            this.timer.restart();
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             // Opp piltast ble trykket
-            model.rotateTetromino();
+            this.model.rotateTetromino();
         }
         else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             // Mellemromstasten ble trykket  
             //while(model.moveTetromino(1, 0));
-            model.dropTetromino();
-            timer.restart();
+            this.model.dropTetromino();
+            this.timer.restart();
         }
-        tetrisView.repaint();
+        this.tetrisView.repaint();
     }
 
     @Override
@@ -83,16 +83,15 @@ public class TetrisController implements KeyListener{
     }
 
     /**
-     * Called by the timer to update the game state
+     * Called by the timer on each tick to update the game state
      * @param a
      */
     void clockTick(ActionEvent a){
-        GameState gameState = model.getGameState();
 
-        if(gameState == GameState.ACTIVE_GAME){
-            model.clockTick();
-            updateTimerDelay();
-            tetrisView.repaint();
+        if(model.getGameState() == GameState.ACTIVE_GAME){
+            this.model.clockTick();
+            this.updateTimerDelay();
+            this.tetrisView.repaint();
         }
     }
 
@@ -100,9 +99,9 @@ public class TetrisController implements KeyListener{
      * Updates the timer delay based on the model's timer setting
      */
     void updateTimerDelay(){
-        int delay = model.getTimerDelay(); 
-        timer.setDelay(delay);
-        timer.setInitialDelay(delay);
+        int delay = this.model.getTimerDelay(); 
+        this.timer.setDelay(delay);
+        this.timer.setInitialDelay(delay);
     }
 
 }

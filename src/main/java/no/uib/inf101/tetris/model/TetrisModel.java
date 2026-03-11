@@ -32,7 +32,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     this.board = new TetrisBoard(15, 10);
     this.factory = new RandomTetrominoFactory();
 
-    this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(board);
+    this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(this.board);
   }
   /**
    * Creates a new TetrisModel using an existing grid as the underlying board
@@ -46,34 +46,34 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     this.board = new TetrisBoard(grid);
     this.factory = new RandomTetrominoFactory();
 
-    this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(board);
+    this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(this.board);
   }
 
   @Override
   public GridDimension getDimension() {
-    return board;
+    return this.board;
   }
 
   @Override
   public Iterable<GridCell> getTilesOnBoard() {
-    return board;
+    return this.board;
   }
 
   @Override
   public Iterable<GridCell> getFallingTetrominoCells() {
-    return fallingTet;
+    return this.fallingTet;
   }
 
   @Override
   public boolean moveTetromino(int deltaRow, int deltaCol) {
 
-    Tetromino candidateTetromino = fallingTet.shiftedBy(deltaRow, deltaCol);
+    Tetromino candidateTetromino = this.fallingTet.shiftedBy(deltaRow, deltaCol);
 
-    if (!isLegalPosition(candidateTetromino)) {
+    if (!this.isLegalPosition(candidateTetromino)) {
       return false;
     }
 
-    fallingTet = candidateTetromino;
+    this.fallingTet = candidateTetromino;
     return true;
   }
 
@@ -85,10 +85,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
    */
   private boolean isLegalPosition(Tetromino tetromino) {
     for (GridCell cell : tetromino) {
-      if (!board.positionIsOnGrid(cell.pos())) {
+      if (!this.board.positionIsOnGrid(cell.pos())) {
         return false;
       }
-      if (!(board.isFree(cell.pos()))) {
+      if (!(this.board.isFree(cell.pos()))) {
         return false;
       }
     }
@@ -98,22 +98,22 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   @Override
   public boolean rotateTetromino() {
-    Tetromino candTetromino = fallingTet.rotatedTetromino(fallingTet);
+    Tetromino candTetromino = this.fallingTet.rotatedTetromino();
 
-    if (!isLegalPosition(candTetromino)) {
+    if (!this.isLegalPosition(candTetromino)) {
       return false;
     }
 
-    fallingTet = candTetromino;
+    this.fallingTet = candTetromino;
 
     return true;
   }
 
   @Override
   public void dropTetromino() {
-    while (moveTetromino(1, 0)) {
+    while (this.moveTetromino(1, 0)) {
     }
-    glueAndNewFalling();
+    this.glueAndNewFalling();
 
   }
 
@@ -125,7 +125,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
    */
   private Tetromino getNewTetromino() {
 
-    Tetromino newTetromino = factory.getNext().shiftedToTopCenterOf(board);
+    Tetromino newTetromino = this.factory.getNext().shiftedToTopCenterOf(board);
 
     return newTetromino;
   }
@@ -135,22 +135,22 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
    * gets a new falling tetromino 
    */
   private void glueAndNewFalling() {
-    board.glueToBoard(fallingTet);
-    board.clearRows();
+    this.board.glueToBoard(this.fallingTet);
+    this.board.clearRows();
 
-    Tetromino candidate = getNewTetromino(); 
+    Tetromino candidate = this.getNewTetromino(); 
 
-    if (!(isLegalPosition(candidate))) {
-      gameState = GameState.GAME_OVER;
+    if (!(this.isLegalPosition(candidate))) {
+      this.gameState = GameState.GAME_OVER;
     }
     else{
-      fallingTet = candidate; 
+      this.fallingTet = candidate; 
     }
   }
 
   @Override
   public GameState getGameState() {
-    return gameState;
+    return this.gameState;
   }
 
   @Override
@@ -160,10 +160,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   @Override
   public void clockTick() {
-    boolean move = moveTetromino(1, 0);
+    boolean move = this.moveTetromino(1, 0);
 
     if (!move) {
-      glueAndNewFalling();
+      this.glueAndNewFalling();
     }
   }
 

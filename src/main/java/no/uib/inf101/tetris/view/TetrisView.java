@@ -62,16 +62,18 @@ public class TetrisView extends JPanel {
   private void drawGame(Graphics2D g2) {
     Rectangle2D box = new Rectangle2D.Double(OUTERMARGIN, OUTERMARGIN, this.getWidth() - OUTERMARGIN * 2,
         this.getHeight() - OUTERMARGIN * 2);
-    g2.setColor(colorTheme.getFrameColor());
+    g2.setColor(this.colorTheme.getFrameColor());
     g2.fill(box);
 
-    CellPositionToPixelConverter converter = new CellPositionToPixelConverter(box, tetrisModel.getDimension(),
+    CellPositionToPixelConverter converter = new CellPositionToPixelConverter(box, this.tetrisModel.getDimension(),
         CELLMARGIN);
 
-    drawCells(g2, tetrisModel.getTilesOnBoard(), converter, colorTheme);
-    if (tetrisModel.getGameState() == GameState.ACTIVE_GAME) {
-      drawCells(g2, tetrisModel.getFallingTetrominoCells(), converter, colorTheme);
-    } else if (tetrisModel.getGameState() == GameState.GAME_OVER) {
+    drawCells(g2, this.tetrisModel.getTilesOnBoard(), converter, this.colorTheme);
+
+    if (this.tetrisModel.getGameState() == GameState.ACTIVE_GAME) {
+      drawCells(g2, this.tetrisModel.getFallingTetrominoCells(), converter, colorTheme);
+    } 
+    else if (this.tetrisModel.getGameState() == GameState.GAME_OVER) {
       Rectangle2D box2 = new Rectangle2D.Double(OUTERMARGIN, OUTERMARGIN, this.getWidth() - OUTERMARGIN * 2,
           this.getHeight() - OUTERMARGIN * 2);
       g2.setColor(new Color(0, 0, 0, 128));
@@ -120,4 +122,8 @@ public class TetrisView extends JPanel {
     return new Dimension(width, height);
   }
 
+  private void drawHomeScreen(Graphics2D g2){
+    
+  }
+  
 }

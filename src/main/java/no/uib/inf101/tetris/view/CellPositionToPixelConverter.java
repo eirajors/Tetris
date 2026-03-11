@@ -18,10 +18,10 @@ public class CellPositionToPixelConverter {
   }
 
   public Rectangle2D getBoundsForCell(CellPosition cellPosition) {
-    double cellW = (box.getWidth() - margin * gd.cols() - margin) / gd.cols();
-    double cellH = (box.getHeight() - margin * gd.rows() - margin) / gd.rows();
-    double cellX = box.getX() + margin + (cellW + margin) * cellPosition.col();
-    double cellY = box.getY() + margin + (cellH + margin) * cellPosition.row();
+    double cellW = (this.box.getWidth() - this.margin * this.gd.cols() - this.margin) / this.gd.cols();
+    double cellH = (this.box.getHeight() - this.margin * this.gd.rows() - this.margin) / this.gd.rows();
+    double cellX = this.box.getX() + this.margin + (cellW + this.margin) * cellPosition.col();
+    double cellY = this.box.getY() + this.margin + (cellH + this.margin) * cellPosition.row();
     
     return new Rectangle2D.Double(cellX, cellY, cellW, cellH);
   }

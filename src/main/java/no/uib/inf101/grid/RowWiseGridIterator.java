@@ -25,26 +25,26 @@ public class RowWiseGridIterator implements Iterator<GridCell> {
 
   @Override
   public boolean hasNext() {
-    if (next.row() + 1 < 0) {
+    if (this.next.row() + 1 < 0) {
       throw new IllegalArgumentException("Row cannot be a negative number.");
     }
-    if (next.col() + 1 < 0) {
+    if (this.next.col() + 1 < 0) {
       throw new IllegalArgumentException("Col cannot be a negative number.");
     }
-    return grid.positionIsOnGrid(next);
+    return this.grid.positionIsOnGrid(this.next);
   }
 
   @Override
   public GridCell next() {
 
-    CellPosition posNow = next;
+    CellPosition posNow = this.next;
 
-    Character cellSymbol = grid.get(posNow);
+    Character cellSymbol = this.grid.get(posNow);
 
-    if (next.col() + 1 < grid.cols()) {
-      next = new CellPosition(posNow.row(), posNow.col() + 1);
+    if (this.next.col() + 1 < this.grid.cols()) {
+      this.next = new CellPosition(posNow.row(), posNow.col() + 1);
     } else {
-      next = new CellPosition(next.row() + 1, 0);
+      this.next = new CellPosition(this.next.row() + 1, 0);
     }
 
     GridCell cell = new GridCell(posNow, cellSymbol);

@@ -61,7 +61,7 @@ public class Tetromino implements Iterable<GridCell> {
     if (!LEGAL_SYMBOLS.contains(symbol)) {
       throw new IllegalArgumentException();
     }
-    boolean[][] newMatrise = MATRISER.get(symbol);
+    boolean[][] newMatrise = Tetromino.MATRISER.get(symbol);
 
     return new Tetromino(symbol, newMatrise, new CellPosition(0, 0));
   }
@@ -74,8 +74,8 @@ public class Tetromino implements Iterable<GridCell> {
    * @return a new shifted Tetromino
    */
   public Tetromino shiftedBy(int deltaRow, int deltaCol) {
-    int newRow = pos.row() + deltaRow;
-    int newCol = pos.col() + deltaCol;
+    int newRow = this.pos.row() + deltaRow;
+    int newCol = this.pos.col() + deltaCol;
 
     return new Tetromino(symbol, matrise, new CellPosition(newRow, newCol));
   }
@@ -100,9 +100,9 @@ public class Tetromino implements Iterable<GridCell> {
     for (int r = 0; r < matrise.length; r++) {
       for (int c = 0; c < matrise[r].length; c++) {
         if (matrise[r][c] == true) {
-          int row = pos.row() + r;
-          int col = pos.col() + c;
-          partOfTet.add(new GridCell(new CellPosition(row, col), symbol));
+          int row = this.pos.row() + r;
+          int col = this.pos.col() + c;
+          partOfTet.add(new GridCell(new CellPosition(row, col), this.symbol));
         }
       }
     }
@@ -128,7 +128,7 @@ public class Tetromino implements Iterable<GridCell> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(symbol, Arrays.deepHashCode(matrise), pos);
+    return Objects.hash(this.symbol, Arrays.deepHashCode(this.matrise), this.pos);
   }
 
   /**
@@ -137,21 +137,21 @@ public class Tetromino implements Iterable<GridCell> {
    * @param tetromino the tetromino to rotate
    * @return a rotated Tetromino
    */
-  public Tetromino rotatedTetromino(Tetromino tetromino) {
-    boolean[][] rotatedTet = new boolean[matrise.length][matrise.length];
+  public Tetromino rotatedTetromino() {
+    boolean[][] rotatedTet = new boolean[this.matrise.length][this.matrise[0].length];
 
-    for (int r = 0; r < matrise.length; r++) {
-      for (int c = 0; c < matrise[0].length; c++) {
-        boolean oldCell = matrise[r][c];
+    for (int r = 0; r < this.matrise.length; r++) {
+      for (int c = 0; c < this.matrise[0].length; c++) {
+        boolean oldCell = this.matrise[r][c];
 
         int newRowIndex = c;
-        int newColIndex = (matrise.length - 1) - r;
+        int newColIndex = (this.matrise.length - 1) - r;
 
         rotatedTet[newRowIndex][newColIndex] = oldCell;
       }
     }
 
-    return new Tetromino(symbol, rotatedTet, pos);
+    return new Tetromino(this.symbol, rotatedTet, this.pos);
   }
 
   /**
@@ -160,7 +160,7 @@ public class Tetromino implements Iterable<GridCell> {
    * @return the matrix of the tetromino
    */
   public boolean[][] getMatrise() {
-    return matrise;
+    return this.matrise;
   }
 
 }

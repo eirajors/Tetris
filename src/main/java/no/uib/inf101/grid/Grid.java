@@ -38,21 +38,21 @@ public class Grid implements IGrid {
     this.cols = cols;
     this.grid = new Character[rows][cols];
     
-    for (int r = 0; r < (grid.length); r++) {
-      for (int c = 0; c < (grid[0].length); c++) {
-        grid[r][c] = defaultValue;
+    for (int r = 0; r < (this.grid.length); r++) {
+      for (int c = 0; c < (this.grid[0].length); c++) {
+        this.grid[r][c] = defaultValue;
       }
     }
   }
 
   @Override
   public int rows() {
-    return rows;
+    return this.rows;
   }
 
   @Override
   public int cols() {
-    return cols;
+    return this.cols;
   }
 
   @Override
@@ -65,14 +65,14 @@ public class Grid implements IGrid {
     if (pos == null) {
       throw new IllegalArgumentException();
     }
-    if (pos.row() >= grid.length || pos.row() < 0) {
+    if (pos.row() >= this.grid.length || pos.row() < 0) {
       throw new IndexOutOfBoundsException();
     }
-    if (pos.col() >= grid[0].length || pos.col() < 0) {
+    if (pos.col() >= this.grid[0].length || pos.col() < 0) {
       throw new IndexOutOfBoundsException();
     }
 
-    grid[pos.row()][pos.col()] = symbol;
+    this.grid[pos.row()][pos.col()] = symbol;
   }
 
   @Override
@@ -80,7 +80,7 @@ public class Grid implements IGrid {
     if (pos == null) {
       throw new IllegalArgumentException();
     }
-    return grid[pos.row()][pos.col()];
+    return this.grid[pos.row()][pos.col()];
 
   }
 
@@ -89,10 +89,10 @@ public class Grid implements IGrid {
     if (pos == null) {
       return false;
     }
-    if (pos.row() >= grid.length || pos.row() < 0) {
+    if (pos.row() >= this.grid.length || pos.row() < 0) {
       return false;
     }
-    if (pos.col() >= grid[0].length || pos.col() < 0) {
+    if (pos.col() >= this.grid[0].length || pos.col() < 0) {
       return false;
     }
 
