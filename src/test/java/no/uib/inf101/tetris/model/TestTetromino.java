@@ -69,7 +69,7 @@ public class TestTetromino {
     boolean[][] rotatedDummyMatrise = { { false, true, false }, { true, true, false }, { false, true, false } };
 
     Tetromino tetromino = Tetromino.newTetromino('T');
-    Tetromino rotated = tetromino.rotatedTetromino(tetromino);
+    Tetromino rotated = tetromino.rotatedTetromino();
     boolean[][] matriseRotatedMatrise = rotated.getMatrise();
 
     assertTrue(Arrays.deepEquals(rotatedDummyMatrise, matriseRotatedMatrise));

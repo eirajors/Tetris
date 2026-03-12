@@ -159,4 +159,10 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     }
   }
 
+  public void clearAll(){
+    for(GridCell cell : this.grid){
+      this.grid.set(cell.pos(), '-');
+    }
+  }
+
 }

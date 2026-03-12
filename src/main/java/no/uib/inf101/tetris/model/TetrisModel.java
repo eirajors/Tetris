@@ -20,7 +20,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
   private final TetrisBoard board;
   private final TetrominoFactory factory;
   private Tetromino fallingTet;
-  private GameState gameState = GameState.ACTIVE_GAME;
+  private GameState gameState = GameState.HOME_SCREEN;
 
   /**
    * Creates a new TetrisModel with default board size of 15 rows and 10 columns
@@ -62,6 +62,13 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
   @Override
   public Iterable<GridCell> getFallingTetrominoCells() {
     return this.fallingTet;
+  }
+
+  @Override
+  public void startGame() {
+    this.gameState = GameState.ACTIVE_GAME;
+    this.fallingTet = this.factory.getNext().shiftedToTopCenterOf(this.board);
+    this.board.clearAll();
   }
 
   @Override
@@ -166,5 +173,6 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
       this.glueAndNewFalling();
     }
   }
+  
 
 }

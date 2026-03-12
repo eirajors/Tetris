@@ -13,95 +13,99 @@ import no.uib.inf101.tetris.view.TetrisView;
 /**
  * Handles user input and connects the Tetris model with the view
  * 
- * The controller listens to keyboard input and controls the game
- * by calling methods in the model
+ * The controller listens to keyboard input and controls the game by calling
+ * methods in the model
  */
-public class TetrisController implements KeyListener{
+public class TetrisController implements KeyListener {
 
-    private final ControllableTetrisModel model; 
-    private final TetrisView tetrisView;
-    private final Timer timer; 
-    private final TetrisSong song; 
+  private final ControllableTetrisModel model;
+  private final TetrisView tetrisView;
+  private final Timer timer;
+  private final TetrisSong song;
+  private GameState gameState;
 
-    /**
-     * Creates a controller for the Tetris game
-     * 
-     * @param model the controllable game model
-     * @param tetrisView the view used to display the game
-     */
-    public TetrisController(ControllableTetrisModel model, TetrisView tetrisView){
-        this.model = model;
-        this.tetrisView = tetrisView;
-        this.timer = new Timer(model.getTimerDelay(), this::clockTick);
-        this.song = new TetrisSong(); 
+  /**
+   * Creates a controller for the Tetris game
+   * 
+   * @param model      the controllable game model
+   * @param tetrisView the view used to display the game
+   */
+  public TetrisController(ControllableTetrisModel model, TetrisView tetrisView) {
+    this.model = model;
+    this.tetrisView = tetrisView;
+    this.timer = new Timer(model.getTimerDelay(), this::clockTick);
+    this.song = new TetrisSong();
 
+    this.gameState = this.model.getGameState();
 
-        this.tetrisView.addKeyListener(this);
-        this.tetrisView.setFocusable(true);
+    this.tetrisView.addKeyListener(this);
+    this.tetrisView.setFocusable(true);
 
-        this.timer.start();
-        this.song.run();
+    this.timer.start();
+    this.song.run();
 
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    if (this.gameState == GameState.ACTIVE_GAME) {
+      if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        this.model.moveTetromino(0, -1);
+      } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        this.model.moveTetromino(0, 1);
+      } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        // Ned piltast ble trykket
+        this.model.moveTetromino(1, 0);
+        this.timer.restart();
+      } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+        // Opp piltast ble trykket
+        this.model.rotateTetromino();
+      } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        // Mellemromstasten ble trykket
+        // while(model.moveTetromino(1, 0));
+        this.model.dropTetromino();
+        this.timer.restart();
+      }
+      this.tetrisView.repaint();
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            this.model.moveTetromino(0, -1);
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            this.model.moveTetromino(0, 1);
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            // Ned piltast ble trykket
-            this.model.moveTetromino(1, 0);
-            this.timer.restart();
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            // Opp piltast ble trykket
-            this.model.rotateTetromino();
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            // Mellemromstasten ble trykket  
-            //while(model.moveTetromino(1, 0));
-            this.model.dropTetromino();
-            this.timer.restart();
-        }
+    else if(this.gameState == GameState.HOME_SCREEN){
+      if(e.getKeyCode() == KeyEvent.VK_SPACE){
+        this.model.startGame();
+        this.gameState = GameState.ACTIVE_GAME;
         this.tetrisView.repaint();
+      }
     }
+  }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
+  @Override
+  public void keyReleased(KeyEvent e) {
+  }
+
+  /**
+   * Called by the timer on each tick to update the game state
+   * 
+   * @param a
+   */
+  void clockTick(ActionEvent a) {
+
+    if (model.getGameState() == GameState.ACTIVE_GAME) {
+      this.model.clockTick();
+      this.updateTimerDelay();
+      this.tetrisView.repaint();
     }
+  }
 
-    /**
-     * Called by the timer on each tick to update the game state
-     * @param a
-     */
-    void clockTick(ActionEvent a){
-
-        if(model.getGameState() == GameState.ACTIVE_GAME){
-            this.model.clockTick();
-            this.updateTimerDelay();
-            this.tetrisView.repaint();
-        }
-    }
-
-    /**
-     * Updates the timer delay based on the model's timer setting
-     */
-    void updateTimerDelay(){
-        int delay = this.model.getTimerDelay(); 
-        this.timer.setDelay(delay);
-        this.timer.setInitialDelay(delay);
-    }
+  /**
+   * Updates the timer delay based on the model's timer setting
+   */
+  void updateTimerDelay() {
+    int delay = this.model.getTimerDelay();
+    this.timer.setDelay(delay);
+    this.timer.setInitialDelay(delay);
+  }
 
 }

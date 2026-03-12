@@ -48,4 +48,9 @@ public interface ControllableTetrisModel {
    */
   public void clockTick();
 
+  /**
+   * Starts the game 
+   */
+  public void startGame();
+
 }

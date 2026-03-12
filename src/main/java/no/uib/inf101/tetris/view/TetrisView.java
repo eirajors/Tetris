@@ -1,5 +1,7 @@
 package no.uib.inf101.tetris.view;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import no.uib.inf101.grid.CellPosition;
@@ -8,11 +10,13 @@ import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.GameState;
 import no.uib.inf101.tetris.model.TetrisModel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -23,13 +27,15 @@ import java.awt.geom.Rectangle2D;
  */
 public class TetrisView extends JPanel {
 
-  public static final int OUTERMARGIN = 15; //Margin between the board and the edge of the panel
+  public static final int OUTERMARGIN = 10; //Margin between the board and the edge of the panel
   public static final int CELLMARGIN = 1; //Margin betweenindividual cells
   public static final int PREFERREDSIDESIZE = 30; //Preferred pixel size of each cell
 
   private final ColorTheme colorTheme;
   private final TetrisModel tetrisModel;
   private GameState gameState;
+
+  private final Image logo; 
 
   /**
    * Creates a new view for the given TetrisModel
@@ -39,12 +45,14 @@ public class TetrisView extends JPanel {
   public TetrisView(TetrisModel tetrisModel) {
 
     this.tetrisModel = tetrisModel;
+    this.logo = new ImageIcon(getClass().getResource("Tetris_logo.png")).getImage(); //https://stackoverflow.com/questions/29580664/java-how-to-add-an-image-to-resource
 
     this.colorTheme = new DefaultColorTheme();
     this.setBackground(colorTheme.getBackgroundColor());
 
     this.setFocusable(true);
     this.setPreferredSize(getDefaultSize(tetrisModel.getDimension()));
+
   }
 
   @Override
@@ -83,6 +91,21 @@ public class TetrisView extends JPanel {
       g2.setColor(Color.RED);
 
       g2.drawString("Game Over!", this.getWidth() / 3, this.getHeight() / 2);
+    }
+    
+    else if (this.tetrisModel.getGameState() == GameState.HOME_SCREEN){
+      Rectangle2D box3 = new Rectangle2D.Double(OUTERMARGIN, OUTERMARGIN, this.getWidth() - OUTERMARGIN * 2,
+          this.getHeight() - OUTERMARGIN * 2);
+      g2.setColor(Color.DARK_GRAY);
+      g2.fill(box3);
+
+      int logoWidth = 300;
+      int logoHeight = 120;
+      
+      int x = (this.getWidth() - logoWidth) / 2;
+      int y = (this.getHeight() - logoHeight) / 2;
+
+      g2.drawImage(this.logo, x, y, logoWidth, logoHeight, this);
     }
 
   }
