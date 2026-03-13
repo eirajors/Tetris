@@ -21,18 +21,26 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
   private final TetrominoFactory factory;
   private Tetromino fallingTet;
   private GameState gameState = GameState.HOME_SCREEN;
+  private int score; 
+  private int level; 
+  private int tetrominosPlaced;
+  private int clearedRows;
 
   /**
    * Creates a new TetrisModel with default board size of 15 rows and 10 columns
    * 
    * A new random tetromino is generated and positioned at the top center of the board
-   * The game state is initialized to ACTIVE_GAME
+   * The game state is initialized to HOME_SCREEN
    */
   public TetrisModel() {
     this.board = new TetrisBoard(15, 10);
     this.factory = new RandomTetrominoFactory();
 
     this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(this.board);
+    this.score = 0; 
+    this.level = 1; 
+    this.tetrominosPlaced = 0; 
+    this.clearedRows = 0;
   }
   /**
    * Creates a new TetrisModel using an existing grid as the underlying board
@@ -40,13 +48,17 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
    * @param grid an existing grid defining the board layout, cannot be null
    * 
    * A new random tetromino is generated and positioned at the top center of the board
-   * The game state is initialized to ACTIVE_GAME
+   * The game state is initialized to HOME_SCREEN
    */
   public TetrisModel(IGrid grid) {
     this.board = new TetrisBoard(grid);
     this.factory = new RandomTetrominoFactory();
 
     this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(this.board);
+    this.score = 0; 
+    this.level = 1; 
+    this.tetrominosPlaced = 0;
+    this.clearedRows = 0; 
   }
 
   @Override
@@ -73,7 +85,9 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   @Override
   public boolean moveTetromino(int deltaRow, int deltaCol) {
-
+    if(this.gameState != GameState.ACTIVE_GAME){
+      return false;
+    }
     Tetromino candidateTetromino = this.fallingTet.shiftedBy(deltaRow, deltaCol);
 
     if (!this.isLegalPosition(candidateTetromino)) {
@@ -139,13 +153,22 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   /**
    * Glues the current falling tetromino to the board, and then
-   * gets a new falling tetromino 
+   * gets a new falling tetromino
+   * Updates score 
    */
   private void glueAndNewFalling() {
+    
     this.board.glueToBoard(this.fallingTet);
     this.board.clearRows();
+    if(this.board.clearRows() > clearedRows){
+      clearedRows = this.board.clearRows();
+      this.score += 100 * this.level; 
+    }
+    this.shouldLevelUp();
 
     Tetromino candidate = this.getNewTetromino(); 
+    this.score += 30;
+    this.tetrominosPlaced ++;
 
     if (!(this.isLegalPosition(candidate))) {
       this.gameState = GameState.GAME_OVER;
@@ -162,7 +185,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   @Override
   public int getTimerDelay() {
-    return 1000;
+    return 800 + (level * 200);
   }
 
   @Override
@@ -173,6 +196,39 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
       this.glueAndNewFalling();
     }
   }
-  
+
+  @Override
+  public int getScore(){
+    return score; 
+  }
+
+  @Override
+  public int getLevel(){
+    return level;
+  }
+
+  public int getLinesCleared(){
+    return this.board.clearRows();
+  }
+
+  /**
+   * Checks if there are enough cleared lines to level up
+   * 
+   * @return true if there are enough cleared rows, false otherwise
+   */
+  private void shouldLevelUp(){
+    if(this.board.clearRows() >= level*10){
+      level ++;
+    }
+  }
+
+  @Override
+  public void pauseGame() {
+  if (this.gameState == GameState.ACTIVE_GAME) {
+    this.gameState = GameState.PAUSED;
+  } else if (this.gameState == GameState.PAUSED) {
+    this.gameState = GameState.ACTIVE_GAME;
+  }
+  }
 
 }

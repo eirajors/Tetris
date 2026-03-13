@@ -8,5 +8,5 @@ public enum GameState {
   ACTIVE_GAME, 
 
   GAME_OVER,
-  HOME_SCREEN
+  HOME_SCREEN, PAUSED
 }

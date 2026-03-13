@@ -22,7 +22,6 @@ public class TetrisController implements KeyListener {
   private final TetrisView tetrisView;
   private final Timer timer;
   private final TetrisSong song;
-  private GameState gameState;
 
   /**
    * Creates a controller for the Tetris game
@@ -35,8 +34,6 @@ public class TetrisController implements KeyListener {
     this.tetrisView = tetrisView;
     this.timer = new Timer(model.getTimerDelay(), this::clockTick);
     this.song = new TetrisSong();
-
-    this.gameState = this.model.getGameState();
 
     this.tetrisView.addKeyListener(this);
     this.tetrisView.setFocusable(true);
@@ -52,7 +49,7 @@ public class TetrisController implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
-    if (this.gameState == GameState.ACTIVE_GAME) {
+    if (this.model.getGameState() == GameState.ACTIVE_GAME) {
       if (e.getKeyCode() == KeyEvent.VK_LEFT) {
         this.model.moveTetromino(0, -1);
       } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -70,12 +67,20 @@ public class TetrisController implements KeyListener {
         this.model.dropTetromino();
         this.timer.restart();
       }
+      else if(e.getKeyCode() == KeyEvent.VK_P){
+        this.model.pauseGame();
+      }
       this.tetrisView.repaint();
     }
-    else if(this.gameState == GameState.HOME_SCREEN){
+    else if(this.model.getGameState() == GameState.HOME_SCREEN){
       if(e.getKeyCode() == KeyEvent.VK_SPACE){
         this.model.startGame();
-        this.gameState = GameState.ACTIVE_GAME;
+        this.tetrisView.repaint();
+      }
+    }
+    else if (this.model.getGameState() == GameState.PAUSED){
+      if(e.getKeyCode() == KeyEvent.VK_P){
+        this.model.pauseGame();
         this.tetrisView.repaint();
       }
     }

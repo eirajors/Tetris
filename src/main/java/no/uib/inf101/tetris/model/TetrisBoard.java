@@ -19,14 +19,17 @@ import no.uib.inf101.tetris.model.tetromino.Tetromino;
 public class TetrisBoard implements Iterable<GridCell>, GridDimension {
 
   private final IGrid grid;
+  private int clearedCount;
 
   // Constructor
   public TetrisBoard(IGrid grid) {
     this.grid = grid;
+    this.clearedCount = 0;
   }
 
   public TetrisBoard(int rows, int cols) {
     this(new Grid(rows, cols, '-'));
+    this.clearedCount = 0;
   }
 
   @Override
@@ -79,16 +82,15 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
    * @return the number of the rows that were cleared
    */
   public int clearRows() {
-    int clearedCount = 0;
 
     for (int r = this.grid.rows() - 1; r >= 0; r--) {
       if (isRowFilled(r)) {
         removeRow(r);
         r++;
-        clearedCount++;
+        this.clearedCount++;
       }
     }
-    return clearedCount;
+    return this.clearedCount;
 
   }
 
