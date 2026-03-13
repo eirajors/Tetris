@@ -56,4 +56,7 @@ public interface ControllableTetrisModel {
   /** If the game state is active, it will pause the game. If it is paused, it will unpause it */
   public void pauseGame();
 
+  /** Can go to homescreen, either from paused game or from game over */
+  public void goToHomeScreen();
+
 }

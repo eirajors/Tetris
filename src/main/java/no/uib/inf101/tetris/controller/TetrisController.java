@@ -49,6 +49,7 @@ public class TetrisController implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
+    
     if (this.model.getGameState() == GameState.ACTIVE_GAME) {
       if (e.getKeyCode() == KeyEvent.VK_LEFT) {
         this.model.moveTetromino(0, -1);
@@ -66,21 +67,27 @@ public class TetrisController implements KeyListener {
         // while(model.moveTetromino(1, 0));
         this.model.dropTetromino();
         this.timer.restart();
-      }
-      else if(e.getKeyCode() == KeyEvent.VK_P){
+      } else if (e.getKeyCode() == KeyEvent.VK_P) {
         this.model.pauseGame();
       }
       this.tetrisView.repaint();
-    }
-    else if(this.model.getGameState() == GameState.HOME_SCREEN){
-      if(e.getKeyCode() == KeyEvent.VK_SPACE){
+    } else if (this.model.getGameState() == GameState.HOME_SCREEN) {
+      if (e.getKeyCode() == KeyEvent.VK_DOWN) {
         this.model.startGame();
         this.tetrisView.repaint();
       }
-    }
-    else if (this.model.getGameState() == GameState.PAUSED){
-      if(e.getKeyCode() == KeyEvent.VK_P){
+    } else if (this.model.getGameState() == GameState.PAUSED) {
+      if (e.getKeyCode() == KeyEvent.VK_P) {
         this.model.pauseGame();
+        this.tetrisView.repaint();
+      }
+      else if (e.getKeyCode() == KeyEvent.VK_H) {
+      this.model.goToHomeScreen();
+      this.tetrisView.repaint();
+    }
+    } else if (this.model.getGameState() == GameState.GAME_OVER){
+      if (e.getKeyCode() == KeyEvent.VK_H){
+        this.model.goToHomeScreen();
         this.tetrisView.repaint();
       }
     }

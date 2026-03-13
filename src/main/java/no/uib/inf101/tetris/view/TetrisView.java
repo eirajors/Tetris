@@ -1,7 +1,6 @@
 package no.uib.inf101.tetris.view;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import no.uib.inf101.grid.CellPosition;
@@ -10,7 +9,6 @@ import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.GameState;
 import no.uib.inf101.tetris.model.TetrisModel;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -84,6 +82,13 @@ public class TetrisView extends JPanel {
       drawScore(g2);
       drawLevel(g2);
       drawLines(g2);
+
+      g2.setColor(Color.WHITE);
+      String pauseString = "press 'P' to pause";
+      g2.setFont(new Font("Dialoginput", Font.BOLD, 15));
+      int pauseWidth = g2.getFontMetrics().stringWidth(pauseString);
+
+      g2.drawString(pauseString, this.getWidth() - pauseWidth - 8, this.getHeight() / 2 + 100);
     }
 
     else if (this.tetrisModel.getGameState() == GameState.GAME_OVER) {
@@ -92,25 +97,33 @@ public class TetrisView extends JPanel {
       g2.setColor(new Color(0, 0, 0, 128));
       g2.fill(box2);
 
-      g2.setColor(Color.RED);
+      g2.setColor(Color.WHITE);
       String string = "Game Over!";
       g2.setFont(new Font("Dialoginput", Font.BOLD, 20));
       int textWidth = g2.getFontMetrics().stringWidth(string);
 
       g2.drawString(string, this.getWidth() / 2 - textWidth / 2, this.getHeight() / 2);
 
+      g2.setColor(Color.WHITE);
+      int score = this.tetrisModel.getScore();
+      String scoreString = "Your score was: " + String.valueOf(score);
+      g2.setFont(new Font("Dialoginput", Font.BOLD, 20));
+      int scoreStringWidth = g2.getFontMetrics().stringWidth(scoreString);
+
+      g2.drawString(scoreString, (this.getWidth() / 2) - (scoreStringWidth / 2), this.getHeight() / 2 + 40);
+
+      goToHomeScreen(g2);
     }
 
     else if (this.tetrisModel.getGameState() == GameState.HOME_SCREEN) {
       drawHomeScreen(g2);
     }
 
-    else if (this.tetrisModel.getGameState() == GameState.PAUSED){
+    else if (this.tetrisModel.getGameState() == GameState.PAUSED) {
 
       drawScore(g2);
       drawLevel(g2);
-      Rectangle2D paused = new Rectangle2D.Double(0, 0, this.getWidth() ,
-          this.getHeight() );
+      Rectangle2D paused = new Rectangle2D.Double(0, 0, this.getWidth(), this.getHeight());
       g2.setColor(new Color(0, 0, 0, 128));
       g2.fill(paused);
 
@@ -120,6 +133,15 @@ public class TetrisView extends JPanel {
       int textWidth = g2.getFontMetrics().stringWidth(pausedString);
 
       g2.drawString(pausedString, this.getWidth() / 2 - textWidth / 2, this.getHeight() / 2);
+
+      g2.setColor(Color.white);
+      String unpause = "press 'P' to resume";
+      g2.setFont(new Font("Dialoginput", Font.BOLD, 15));
+      int textWidth2 = g2.getFontMetrics().stringWidth(unpause);
+
+      g2.drawString(unpause, this.getWidth() / 2 - textWidth2 / 2, this.getHeight() / 2 + 40);
+
+      goToHomeScreen(g2);
 
     }
 
@@ -186,11 +208,11 @@ public class TetrisView extends JPanel {
     g2.fill(clickToPlay);
 
     g2.setColor(Color.WHITE);
-    String string = "CLICK SPACE TO PLAY";
+    String string = "PRESS DOWN TO PLAY";
     g2.setFont(new Font("Dialoginput", Font.BOLD, 22));
     int textWidth = g2.getFontMetrics().stringWidth(string);
 
-    g2.drawString("CLICK SPACE TO PLAY", this.getWidth() / 2 - textWidth / 2, y + logoHeight + 30);
+    g2.drawString(string, this.getWidth() / 2 - textWidth / 2, y + logoHeight + 30);
 
   }
 
@@ -219,7 +241,12 @@ public class TetrisView extends JPanel {
     g2.drawString(currentScore, 65, this.getHeight() / 2 + 50);
   }
 
-  private void drawLevel(Graphics2D g2){
+  /**
+   * Help method to draw the level when the game is active
+   * 
+   * @param g2 the graphics object used to draw the game
+   */
+  private void drawLevel(Graphics2D g2) {
     g2.setColor(Color.WHITE);
     String scoreString = "LEVEL";
     g2.setFont(new Font("Dialoginput", Font.BOLD, 20));
@@ -231,7 +258,12 @@ public class TetrisView extends JPanel {
     g2.drawString(currentLevel, 65, this.getHeight() / 2 + 100);
   }
 
-  private void drawLines(Graphics2D g2){
+  /**
+   * Help method to draw the number of lines cleared when the game is active
+   * 
+   * @param g2 the graphics object used to draw the game
+   */
+  private void drawLines(Graphics2D g2) {
     g2.setColor(Color.WHITE);
     String scoreString = "LINES";
     g2.setFont(new Font("Dialoginput", Font.BOLD, 20));
@@ -241,5 +273,19 @@ public class TetrisView extends JPanel {
     String currentClearedLines = String.valueOf(currentClearedLinesInt);
     g2.setFont(new Font("Dialoginput", Font.BOLD, 18));
     g2.drawString(currentClearedLines, 65, this.getHeight() / 2 + 160);
+  }
+
+  /**
+   * Help method to draw how to go to homescreen
+   * 
+   * @param g2 the graphics object used to draw the game
+   */
+  private void goToHomeScreen(Graphics2D g2) {
+    g2.setColor(Color.white);
+    String homescreen = "press 'H' to go to homescreen";
+    g2.setFont(new Font("Dialoginput", Font.BOLD, 15));
+    int textWidth2 = g2.getFontMetrics().stringWidth(homescreen);
+
+    g2.drawString(homescreen, this.getWidth() / 2 - textWidth2 / 2, this.getHeight() / 2 + 80);
   }
 }
