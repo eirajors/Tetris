@@ -235,13 +235,33 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
   public void goToHomeScreen() {
     this.gameState = GameState.HOME_SCREEN;
     this.board.clearAll();
-    this.score = 0; 
-    this.level = 1; 
+    this.score = 0;
+    this.level = 1;
     this.tetrominosPlaced = 0;
 
-    this.clearedRows = 0; 
+    this.clearedRows = 0;
 
     this.fallingTet = this.factory.getNext().shiftedToTopCenterOf(this.board);
+  }
+
+  /**
+   * Creates a shadow of the Tetromino that is current falling tetromino
+   * 
+   * @return a shadow of the tetromino at the place where it would fall
+   */
+  public Tetromino shadowTetromino() {
+    Tetromino shadowTetromino = this.fallingTet;
+
+    while (true) {
+      Tetromino candidateShadow = shadowTetromino.shiftedBy(1, 0);
+
+      if (isLegalPosition(candidateShadow)) {
+        shadowTetromino = candidateShadow;
+      } else {
+          break;
+      }
+    }
+    return shadowTetromino;
   }
 
 }

@@ -6,7 +6,7 @@ package no.uib.inf101.tetris.model;
 public enum GameState {
 
   ACTIVE_GAME, 
-
   GAME_OVER,
-  HOME_SCREEN, PAUSED
+  HOME_SCREEN, 
+  PAUSED
 }

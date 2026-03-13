@@ -79,6 +79,7 @@ public class TetrisView extends JPanel {
 
     if (this.tetrisModel.getGameState() == GameState.ACTIVE_GAME) {
       drawCells(g2, this.tetrisModel.getFallingTetrominoCells(), converter, colorTheme);
+      drawCells(g2, this.tetrisModel.shadowTetromino(), converter, colorTheme);
       drawScore(g2);
       drawLevel(g2);
       drawLines(g2);
@@ -288,4 +289,5 @@ public class TetrisView extends JPanel {
 
     g2.drawString(homescreen, this.getWidth() / 2 - textWidth2 / 2, this.getHeight() / 2 + 80);
   }
+
 }
