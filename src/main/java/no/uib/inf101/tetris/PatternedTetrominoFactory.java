@@ -8,7 +8,7 @@ public class PatternedTetrominoFactory implements TetrominoFactory {
   String pattern;
   int currPosition;
 
-  // konstruktør
+  // Constructor
   public PatternedTetrominoFactory(String pattern) {
     if (pattern == null || pattern.isEmpty()) {
       throw new IllegalArgumentException();

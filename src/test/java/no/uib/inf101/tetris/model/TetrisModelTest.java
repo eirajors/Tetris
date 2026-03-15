@@ -16,13 +16,15 @@ import no.uib.inf101.grid.GridDimension;
 
 public class TetrisModelTest {
 
-  private TetrisModel model = new TetrisModel();
   private Grid grid = new Grid(15, 10, '-');
 
   // teste
   // vellykket flytting returnerer true
   @Test
   void testMoveTetrominoReturnValue() {
+    TetrisModel model = new TetrisModel();
+    model.startGame();
+
     assertTrue(model.moveTetromino(1, 0));
     assertTrue(model.moveTetromino(5, 0));
     assertTrue(model.moveTetromino(0, 3));
@@ -36,6 +38,9 @@ public class TetrisModelTest {
   // brikken
   @Test
   void testIteratorOfMovedTetromino() {
+    TetrisModel model = new TetrisModel();
+    model.startGame();
+
     ArrayList<GridCell> before = new ArrayList<>();
 
     for (GridCell cell : model.getFallingTetrominoCells()) {
@@ -55,6 +60,7 @@ public class TetrisModelTest {
 
   @Test
   void testNotMoveOutsideBoard() {
+    TetrisModel model = new TetrisModel();
     ArrayList<CellPosition> positions = new ArrayList<>();
 
     for (GridCell cell : model.getFallingTetrominoCells()) {
@@ -120,6 +126,8 @@ public class TetrisModelTest {
   @Test
   void testClockTick() {
     TetrisModel model = new TetrisModel();
+    model.startGame();
+
 
     ArrayList<CellPosition> cellsBefore = new ArrayList<>();
 
