@@ -147,23 +147,23 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
    */
   private Tetromino getNewTetromino() {
 
-    Tetromino newTetromino = this.factory.getNext().shiftedToTopCenterOf(board);
+    Tetromino newTetromino = this.factory.getNext().shiftedToTopCenterOf(this.board);
 
     return newTetromino;
   }
 
   /**
    * Glues the current falling tetromino to the board, and then gets a new falling
-   * tetromino Updates score
+   * tetromino. Updates score and level
    */
   private void glueAndNewFalling() {
 
     this.board.glueToBoard(this.fallingTet);
-    this.board.clearRows();
+    int clearedRowsCurrent = this.board.clearRows();
 
-    if (this.board.clearRows() > clearedRows) {
-      clearedRows = this.board.clearRows();
-      this.score += (100 + (this.board.clearRows() - clearedRows) * 100) * this.level;
+    if (clearedRowsCurrent > clearedRows) {
+      this.score += (100 + (clearedRowsCurrent - clearedRows) * 100) * this.level;
+      clearedRows = clearedRowsCurrent;
     }
 
     this.shouldLevelUp();
@@ -258,7 +258,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
       if (isLegalPosition(candidateShadow)) {
         shadowTetromino = candidateShadow;
       } else {
-          break;
+        break;
       }
     }
     return shadowTetromino;

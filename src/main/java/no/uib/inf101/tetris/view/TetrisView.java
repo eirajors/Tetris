@@ -78,8 +78,8 @@ public class TetrisView extends JPanel {
     drawCells(g2, this.tetrisModel.getTilesOnBoard(), converter, this.colorTheme);
 
     if (this.tetrisModel.getGameState() == GameState.ACTIVE_GAME) {
+      drawCellsShadow(g2, this.tetrisModel.shadowTetromino(), converter, colorTheme);
       drawCells(g2, this.tetrisModel.getFallingTetrominoCells(), converter, colorTheme);
-      drawCells(g2, this.tetrisModel.shadowTetromino(), converter, colorTheme);
       drawScore(g2);
       drawLevel(g2);
       drawLines(g2);
@@ -168,6 +168,17 @@ public class TetrisView extends JPanel {
       Color colorCell = colorTheme.getCellColor(colorSymbol);
 
       g2.setColor(colorCell);
+      g2.fill(cellArea);
+    }
+  }
+  private static void drawCellsShadow(Graphics2D g2, Iterable<GridCell> iterable, CellPositionToPixelConverter converter,
+      ColorTheme colorTheme) {
+    for (GridCell cell : iterable) {
+
+      CellPosition cellPos = cell.pos();
+      Rectangle2D cellArea = converter.getBoundsForCell(cellPos);
+
+      g2.setColor(Color.DARK_GRAY);
       g2.fill(cellArea);
     }
   }

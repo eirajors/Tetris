@@ -100,6 +100,7 @@ public class TetrisModelTest {
   @Test
   void testDropTetromino() {
     TetrisModel modelAfterDrop = new TetrisModel();
+    modelAfterDrop.startGame();
     modelAfterDrop.dropTetromino();
 
     boolean isDropped = false;
@@ -114,9 +115,6 @@ public class TetrisModelTest {
       }
     }
     assertTrue(isDropped);
-
-    //assertFalse(modelAfterDrop.moveTetromino(1, 0));
-
   }
 
   @Test
