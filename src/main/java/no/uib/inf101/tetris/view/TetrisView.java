@@ -114,6 +114,12 @@ public class TetrisView extends JPanel {
       g2.drawString(scoreString, (this.getWidth() / 2) - (scoreStringWidth / 2), this.getHeight() / 2 + 40);
 
       goToHomeScreen(g2);
+      g2.setColor(Color.white);
+      String playAgain = "press 'DOWN' to go to play again";
+      g2.setFont(new Font("Dialoginput", Font.BOLD, 15));
+      int textWidth2 = g2.getFontMetrics().stringWidth(playAgain);
+
+      g2.drawString(playAgain, this.getWidth() / 2 - textWidth2 / 2, this.getHeight() / 2 + 100);
     }
 
     else if (this.tetrisModel.getGameState() == GameState.HOME_SCREEN) {

@@ -49,7 +49,7 @@ public class TetrisController implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
-    
+
     if (this.model.getGameState() == GameState.ACTIVE_GAME) {
       if (e.getKeyCode() == KeyEvent.VK_LEFT) {
         this.model.moveTetromino(0, -1);
@@ -80,15 +80,16 @@ public class TetrisController implements KeyListener {
       if (e.getKeyCode() == KeyEvent.VK_P) {
         this.model.pauseGame();
         this.tetrisView.repaint();
-      }
-      else if (e.getKeyCode() == KeyEvent.VK_H) {
-      this.model.goToHomeScreen();
-      this.tetrisView.repaint();
-    }
-    } else if (this.model.getGameState() == GameState.GAME_OVER){
-      if (e.getKeyCode() == KeyEvent.VK_H){
+      } else if (e.getKeyCode() == KeyEvent.VK_H) {
         this.model.goToHomeScreen();
         this.tetrisView.repaint();
+      }
+    } else if (this.model.getGameState() == GameState.GAME_OVER) {
+      if (e.getKeyCode() == KeyEvent.VK_H) {
+        this.model.goToHomeScreen();
+        this.tetrisView.repaint();
+      } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        this.model.startGame();
       }
     }
   }

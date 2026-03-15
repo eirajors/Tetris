@@ -81,6 +81,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
   public void startGame() {
     this.gameState = GameState.ACTIVE_GAME;
     this.fallingTet = this.factory.getNext().shiftedToTopCenterOf(this.board);
+    this.score = 0;
+    this.level = 1;
+    this.tetrominosPlaced = 0;
+    this.clearedRows = 0;
     this.board.clearAll();
   }
 
@@ -232,6 +236,9 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     }
   }
 
+  /**
+   * Resets the game when you go to homescreen
+   */
   public void goToHomeScreen() {
     this.gameState = GameState.HOME_SCREEN;
     this.board.clearAll();
