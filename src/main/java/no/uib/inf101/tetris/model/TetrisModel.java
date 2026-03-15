@@ -36,7 +36,8 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     this.board = new TetrisBoard(15, 10);
     this.factory = new RandomTetrominoFactory();
 
-    this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(this.board);
+    this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(this.board);   
+
     this.score = 0;
     this.level = 1;
     this.tetrominosPlaced = 0;
@@ -56,6 +57,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     this.factory = new RandomTetrominoFactory();
 
     this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(this.board);
+
     this.score = 0;
     this.level = 1;
     this.tetrominosPlaced = 0;

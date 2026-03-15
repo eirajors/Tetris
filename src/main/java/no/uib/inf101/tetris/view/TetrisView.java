@@ -8,6 +8,7 @@ import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.GameState;
 import no.uib.inf101.tetris.model.TetrisModel;
+import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -78,7 +79,7 @@ public class TetrisView extends JPanel {
     drawCells(g2, this.tetrisModel.getTilesOnBoard(), converter, this.colorTheme);
 
     if (this.tetrisModel.getGameState() == GameState.ACTIVE_GAME) {
-      drawCellsShadow(g2, this.tetrisModel.shadowTetromino(), converter, colorTheme);
+      drawCellsShadow(g2, this.tetrisModel.shadowTetromino(), converter);
       drawCells(g2, this.tetrisModel.getFallingTetrominoCells(), converter, colorTheme);
       drawScore(g2);
       drawLevel(g2);
@@ -177,8 +178,14 @@ public class TetrisView extends JPanel {
       g2.fill(cellArea);
     }
   }
-  private static void drawCellsShadow(Graphics2D g2, Iterable<GridCell> iterable, CellPositionToPixelConverter converter,
-      ColorTheme colorTheme) {
+    /**
+   * Draws a collection of GridCells using the provided converter 
+   * 
+   * @param g2         the graphics object used to draw the game
+   * @param iterable   the cells to draw
+   * @param converter  converts cells posistions to pixel coordinates
+   */
+  private static void drawCellsShadow(Graphics2D g2, Iterable<GridCell> iterable, CellPositionToPixelConverter converter) {
     for (GridCell cell : iterable) {
 
       CellPosition cellPos = cell.pos();
