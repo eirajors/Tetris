@@ -18,5 +18,5 @@ TetrisModel representerer model-delen og implementerer både ViewableTetrisModel
 
 ## Forklar hvordan du har gjort Tetromino uforanderlig og hvorfor dette er viktig for å sikre at spillet fungerer som forventet.
 
-Tetromino er gjort uforanderlig ved at objektet ikke kan endres etter det er opprettet. Istednfor vil det tegnes en ny Tetromino både ved rotasjon, og forflytning. 
+Tetromino er gjort uforanderlig ved at objektet ikke kan endres etter det er opprettet. Alle feltene blir satt i konstruktøren, og ingen av dem endres etterpå. Istednfor vil det tegnes en ny Tetromino både ved rotasjon, og forflytning. shiftedBy() og rotatedTetromino er eksempler på slike metoder som returnerer et nytt Tetromino-objekt. Dette vil blant annet gjøre det trygt å bruke objektet flere steder som for eksempel i shadowTetromino(). Dette vil også føre til mer forutsigbar oppførsel i spillet, og gjør at ikke objektet kan bli endret flere steder i programmet, som forhindrer bugs. Alt dette vil gjøre det enklere å teste eller å finne feil i programmet. 
 

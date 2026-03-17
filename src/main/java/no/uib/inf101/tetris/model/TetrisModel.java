@@ -224,17 +224,17 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   @Override
   public int getScore() {
-    return score;
+    return this.score;
   }
 
   @Override
   public int getLevel() {
-    return level;
+    return this.level;
   }
 
   @Override
   public int getLinesCleared() {
-    return this.board.clearRows();
+    return this.clearedRows;
   }
 
   /**
@@ -243,8 +243,8 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
    * @return true if there are enough cleared rows, false otherwise
    */
   private void shouldLevelUp() {
-    if (this.board.clearRows() >= level * 10) {
-      level++;
+    if (this.board.clearRows() >= this.level * 10) {
+      this.level++;
     }
   }
 
@@ -257,26 +257,16 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     }
   }
 
-  /**
-   * Resets the game when you go to homescreen
-   */
+  @Override
   public void goToHomeScreen() {
     this.gameState = GameState.HOME_SCREEN;
     this.board.clearAll();
     this.score = 0;
     this.level = 1;
     this.tetrominosPlaced = 0;
-
     this.clearedRows = 0;
-
-    this.fallingTet = this.factory.getNext().shiftedToTopCenterOf(this.board);
   }
 
-  /**
-   * Creates a shadow of the Tetromino that is current falling tetromino
-   * 
-   * @return a shadow of the tetromino at the place where it would fall
-   */
   @Override
   public Tetromino shadowTetromino() {
     Tetromino shadowTetromino = this.fallingTet;

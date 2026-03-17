@@ -27,8 +27,12 @@ public interface ViewableTetrisModel {
   /** @return the sum of number of rows cleared */
   int getLinesCleared();
 
-  /** @return a shadow of the current falling tetromino
+  /** 
+   * Creates a shadow of the current falling tetromino
+   * 
+   * @return a shadow of the current falling tetromino
    * so that the player can see where the tetromino will potentionally land 
    */
   Tetromino shadowTetromino();
+
 }
