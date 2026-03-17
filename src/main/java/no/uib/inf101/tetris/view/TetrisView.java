@@ -7,8 +7,6 @@ import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.GameState;
-import no.uib.inf101.tetris.model.TetrisModel;
-import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,8 +30,9 @@ public class TetrisView extends JPanel {
   public static final int PREFERREDSIDESIZE = 30; // Preferred pixel size of each cell
 
   private final ColorTheme colorTheme;
-  private final TetrisModel tetrisModel;
+  private final ViewableTetrisModel tetrisModel;
   private GameState gameState;
+  private int previousClearedLines;
 
   private final Image logo;
 
@@ -42,9 +41,10 @@ public class TetrisView extends JPanel {
    * 
    * @param tetrisModel the model containing the current gameState
    */
-  public TetrisView(TetrisModel tetrisModel) {
+  public TetrisView(ViewableTetrisModel tetrisModel) {
 
     this.tetrisModel = tetrisModel;
+    this.previousClearedLines = 0;
     this.logo = new ImageIcon(getClass().getResource("Tetris_logo.png")).getImage(); // https://stackoverflow.com/questions/29580664/java-how-to-add-an-image-to-resource
 
     this.colorTheme = new DefaultColorTheme();
@@ -178,14 +178,16 @@ public class TetrisView extends JPanel {
       g2.fill(cellArea);
     }
   }
-    /**
-   * Draws a collection of GridCells using the provided converter 
+
+  /**
+   * Draws a collection of GridCells using the provided converter
    * 
-   * @param g2         the graphics object used to draw the game
-   * @param iterable   the cells to draw
-   * @param converter  converts cells posistions to pixel coordinates
+   * @param g2        the graphics object used to draw the game
+   * @param iterable  the cells to draw
+   * @param converter converts cells posistions to pixel coordinates
    */
-  private static void drawCellsShadow(Graphics2D g2, Iterable<GridCell> iterable, CellPositionToPixelConverter converter) {
+  private static void drawCellsShadow(Graphics2D g2, Iterable<GridCell> iterable,
+      CellPositionToPixelConverter converter) {
     for (GridCell cell : iterable) {
 
       CellPosition cellPos = cell.pos();
@@ -285,6 +287,8 @@ public class TetrisView extends JPanel {
 
   /**
    * Help method to draw the number of lines cleared when the game is active
+   * Draws how many lines cleared when lines are cleared, and shows how many extra points get added to
+   * the players score
    * 
    * @param g2 the graphics object used to draw the game
    */
@@ -298,6 +302,42 @@ public class TetrisView extends JPanel {
     String currentClearedLines = String.valueOf(currentClearedLinesInt);
     g2.setFont(new Font("Dialoginput", Font.BOLD, 18));
     g2.drawString(currentClearedLines, 65, this.getHeight() / 2 + 160);
+
+    if (previousClearedLines < currentClearedLinesInt) {
+      int linesCleared = currentClearedLinesInt - previousClearedLines;
+      String stringLinesCleared = "";
+      int baseScore = 0; 
+
+      if (linesCleared == 1) {
+        stringLinesCleared = "SINGLE";
+        baseScore = 100;
+      } else if (linesCleared == 2) {
+        stringLinesCleared = "DOUBLE";
+        baseScore = 300;
+
+      } else if (linesCleared == 3) {
+        stringLinesCleared = "TRIPLE";
+        baseScore = 500;
+      } else if (linesCleared == 4) {
+        stringLinesCleared = "QUADRUPLE";
+        baseScore = 800;
+      }
+
+      int scoreLinesCleared = baseScore * this.tetrisModel.getLevel();
+      String stringScoreLinesCleared = "+ " + String.valueOf(scoreLinesCleared);
+
+      int textWidthLinesCleared = g2.getFontMetrics().stringWidth(stringLinesCleared);
+      g2.setFont(new Font("Dialoginput", Font.BOLD, 18));
+      g2.drawString(stringLinesCleared, this.getWidth() / 2 - textWidthLinesCleared / 2, this.getHeight() / 2);
+
+      int textWidthScoreLinesCleared = g2.getFontMetrics().stringWidth(stringLinesCleared);
+      g2.setFont(new Font("Dialoginput", Font.BOLD, 18));
+      g2.drawString(stringScoreLinesCleared, this.getWidth() / 2 - textWidthScoreLinesCleared / 2,
+          (this.getHeight() / 2) + 40);
+
+    }
+    previousClearedLines = currentClearedLinesInt;
+
   }
 
   /**

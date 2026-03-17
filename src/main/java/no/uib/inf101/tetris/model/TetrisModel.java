@@ -59,6 +59,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     this.fallingTet = (factory.getNext()).shiftedToTopCenterOf(this.board);
 
     this.score = 0;
+
     this.level = 1;
     this.tetrominosPlaced = 0;
     this.clearedRows = 0;
@@ -166,9 +167,23 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
     this.board.glueToBoard(this.fallingTet);
     int clearedRowsCurrent = this.board.clearRows();
+    int baseScore = 0;
 
     if (clearedRowsCurrent > clearedRows) {
-      this.score += (100 + (clearedRowsCurrent - clearedRows) * 100) * this.level;
+      int linesCleared = clearedRowsCurrent - clearedRows;
+      if (linesCleared == 1){
+        baseScore = 100;
+      }
+      else if (linesCleared == 2){
+        baseScore = 300;
+      }
+      else if (linesCleared == 3){
+        baseScore = 500;
+      }
+      else if (linesCleared == 4){
+        baseScore = 800;
+      }
+      this.score += baseScore * this.level;
       clearedRows = clearedRowsCurrent;
     }
 
@@ -192,7 +207,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   @Override
   public int getTimerDelay() {
-    return 800 + (level * 200);
+    if (level >= 9){
+      return 200;
+    }
+    return 800 - (level * 75);
   }
 
   @Override
@@ -214,6 +232,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     return level;
   }
 
+  @Override
   public int getLinesCleared() {
     return this.board.clearRows();
   }
@@ -258,6 +277,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
    * 
    * @return a shadow of the tetromino at the place where it would fall
    */
+  @Override
   public Tetromino shadowTetromino() {
     Tetromino shadowTetromino = this.fallingTet;
 

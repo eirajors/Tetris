@@ -161,10 +161,14 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
     }
   }
 
+  /**
+   * Clears the board, and resets how many lines are cleared
+   */
   public void clearAll(){
     for(GridCell cell : this.grid){
       this.grid.set(cell.pos(), '-');
     }
+    this.clearedCount = 0;
   }
 
 }

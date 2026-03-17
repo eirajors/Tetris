@@ -99,7 +99,7 @@ public class Tetromino implements Iterable<GridCell> {
     // for-loop to find the GridCells that are a part of the Tetromino
     for (int r = 0; r < matrise.length; r++) {
       for (int c = 0; c < matrise[r].length; c++) {
-        if (matrise[r][c] == true) {
+        if (matrise[r][c]) {
           int row = this.pos.row() + r;
           int col = this.pos.col() + c;
           partOfTet.add(new GridCell(new CellPosition(row, col), this.symbol));
