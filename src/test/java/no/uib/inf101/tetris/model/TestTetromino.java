@@ -104,6 +104,7 @@ public class TestTetromino {
   void testIsFree() {
     Grid grid = new Grid(5, 5, '-');
     TetrisBoard board = new TetrisBoard(grid);
+
     for (int r = 0; r < board.rows(); r++){
       for (int c = 0; c < board.cols(); c++){
         if (r == 3) {
@@ -121,8 +122,19 @@ public class TestTetromino {
 
   @Test
   void testClearAll() {
+    Grid grid = new Grid(5, 5, '-');
+    TetrisBoard board = new TetrisBoard(grid);
     
+    for (GridCell cell : grid) {
+      CellPosition cellPos = cell.pos();
+      grid.set(cellPos, 'R');
+    }
 
+    board.clearAll();
+
+    for (GridCell cell2 : grid) {
+      assertTrue(grid.get(cell2.pos()) == '-');
+    }
   }
 
 }
