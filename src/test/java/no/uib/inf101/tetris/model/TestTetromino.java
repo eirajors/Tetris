@@ -13,7 +13,6 @@ import no.uib.inf101.grid.Grid;
 import no.uib.inf101.grid.GridCell;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import no.uib.inf101.tetris.model.tetromino.Tetromino;
 

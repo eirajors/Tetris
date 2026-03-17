@@ -18,7 +18,7 @@ import no.uib.inf101.tetris.model.TetrisBoard;
 import no.uib.inf101.tetris.model.tetromino.Tetromino;
 
 public class TetrisBoardTest {
-  // ferdig
+
   @Test
   void testConstructStartsWithEmpty() {
     int rows = 3;
@@ -42,7 +42,6 @@ public class TetrisBoardTest {
     assertEquals(0, countTaken);
   }
 
-  // gjør??
   @Test
   void testConstructs() {
     assertThrows(IllegalArgumentException.class, () -> {
@@ -53,7 +52,6 @@ public class TetrisBoardTest {
     }, "Can not have negative number of rows");
   }
 
-  // gjør??
   @Test
   void testIterator() {
     IGrid grid = new Grid(3, 2, 'x');
@@ -73,10 +71,9 @@ public class TetrisBoardTest {
     assertTrue(items.contains(new GridCell(new CellPosition(0, 1), 'x')));
   }
 
-  // gjør??
   @Test
   void testPositionIsOnGrid() {
-    IGrid grid = new Grid(3, 2, 'z');
+    IGrid grid = new Grid(3, 2, '-');
 
     assertTrue(grid.positionIsOnGrid(new CellPosition(2, 1)));
     assertFalse(grid.positionIsOnGrid(new CellPosition(3, 1)));
@@ -89,7 +86,6 @@ public class TetrisBoardTest {
     assertFalse(grid.positionIsOnGrid(null));
   }
 
-  // ferdig
   @Test
   void testIsFree() {
     int rows = 3;
@@ -110,9 +106,7 @@ public class TetrisBoardTest {
 
   }
 
-  // tester om det er like mange emptycells etter liming som at
-  // hadde vært om det var en tetromino der.
-  // tester og om verdien i cellen er lik som det grid sin verdi, altså lik farge
+
   @Test
   void testGlueToBoard() {
     Grid grid = new Grid(15, 10, '-');
