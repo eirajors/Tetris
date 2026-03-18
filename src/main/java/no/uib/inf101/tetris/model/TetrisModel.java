@@ -207,10 +207,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
   @Override
   public int getTimerDelay() {
-    if (level >= 9){
+    if (level >= 8){
       return 200;
     }
-    return 800 - (level * 75);
+    return 1000 - (level * 100);
   }
 
   @Override
