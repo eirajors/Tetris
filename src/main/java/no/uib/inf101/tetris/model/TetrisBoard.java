@@ -21,12 +21,24 @@ public class TetrisBoard implements Iterable<GridCell>, GridDimension {
   private final IGrid grid;
   private int clearedCount;
 
-  // Constructor
+  /**
+   * A constructor for TetrisBoard
+   * Creates a tetrisboard given a grid
+   * 
+   * @param grid the grid used to create the board
+   */
   public TetrisBoard(IGrid grid) {
     this.grid = grid;
     this.clearedCount = 0;
   }
-
+  
+  /**
+   * Another constructor for TetrisBoard
+   * Creates a tetrisboard griven a number of rows and columns
+   * 
+   * @param rows the number of rows
+   * @param cols the number of columns 
+   */
   public TetrisBoard(int rows, int cols) {
     this(new Grid(rows, cols, '-'));
     this.clearedCount = 0;

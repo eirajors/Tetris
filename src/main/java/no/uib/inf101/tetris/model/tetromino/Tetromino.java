@@ -42,7 +42,13 @@ public class Tetromino implements Iterable<GridCell> {
         { false, true, true, false }, { false, false, false, false } });
   }
 
-  // Constructor
+  /**
+   * Constructor 
+   * 
+   * @param symbol the character/symbol for the tetromino 
+   * @param matrise the matrix for the tetromino
+   * @param pos the cellposition of the middle cell of the tetromino 
+   */
   private Tetromino(char symbol, boolean[][] matrise, CellPosition pos) {
     this.symbol = symbol;
     this.matrise = matrise;
